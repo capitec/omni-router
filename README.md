@@ -52,75 +52,12 @@ npm install @capitec/omni-router
 
 ## Usage
 
-```js
-import { Router } from '@capitec/omni-router';
-
-const template = document.createElement('template');
-template.innerHTML = `<omni-router-outlet></omni-router-outlet>`;
-
-class MyApp extends HTMLElement {
-
-	constructor() {
-
-		super();
-
-		// Create the element shadow root.
-		const shadow = this.attachShadow({ mode: 'open' });
-
-		// Set the element content.
-		this.shadowRoot.appendChild(template.content.cloneNode(true));
-
-		// Register the app routes.
-		const router = Router.getInstance();
-
-		router.addRoute({
-			name: 'view-login',
-			title: 'Log In',
-			path: '/login',
-			animation: 'fade',
-			load: () => import('views/ViewLogin'),
-			isFallback: true
-		});
-
-		router.addRoute({
-			name: 'view-register',
-			title: 'Register',
-			path: '/register',
-			animation: 'fade',
-			load: () => import('views/ViewRegister')
-		});
-
-		router.addRoute({
-			name: 'view-home',
-			title: 'Home',
-			path: '/home',
-			animation: 'fade',
-			load: () => import('views/ViewHome'),
-			guard: () => this.isAuthenticated()
-		});
-	}
-}
-
-customElements.define('my-app', MyApp);
-```
-
-### index.html
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<title>My App</title>
-	</head>
-	<body>
-		<h2>Omni Router Demo</h2>
-		<my-app></my-app>
-
-		<!-- scripts -->
-		<script src="my-app.js"></script> 
-	</body>
-</html>
-```
+The examples directory contains demo projects for:
+- [Vanilla JS](/examples/vanilla)
+- [Lit](/examples/lit) <small>(coming soon<)</small>
+- [React](/examples/react) <small>(coming soon)</small>
+- [Vue](/examples/vue) <small>(coming soon)</small>
+- [Svelte](/examples/svelte) <small>(coming soon)</small>
 
 
 ## API Reference

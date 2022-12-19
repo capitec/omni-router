@@ -1,6 +1,6 @@
 {
 	"name": "@capitec/omni-router",
-	"version": "1.0.3",
+	"version": "1.0.0",
 	"description": "Simple path-based web component router",
 	"author": "Capitec",
 	"license": "MIT",
