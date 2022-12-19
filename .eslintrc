@@ -1,0 +1,22 @@
+{
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"plugins": [
+		"@typescript-eslint",
+		"eslint-plugin-tsdoc"
+	],
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:@typescript-eslint/recommended-requiring-type-checking"
+	],
+	"parserOptions": {
+		"project": "./tsconfig.json",
+		"ecmaVersion": 2018,
+		"sourceType": "module"
+	},
+	"rules": {
+		"tsdoc/syntax": "error",
+		"@typescript-eslint/explicit-function-return-type": "error"
+	}
+}

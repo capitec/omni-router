@@ -1,0 +1,33 @@
+{
+	// Format a file on save. A formatter must be available, the file must not be auto-saved, and editor must not be shutting down.
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+	"[javascript]": {
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true,
+	},
+	// Insert spaces when pressing Tab. This setting is overridden based on the file contents when `editor.detectIndentation` is on.
+	"editor.insertSpaces": false,
+	// When opening a file, `editor.tabSize` and `editor.insertSpaces` will be detected based on the file contents.
+	"editor.detectIndentation": false,
+	// Controls how the editor should render whitespace characters, possibilities are 'none', 'boundary', and 'all'. The 'boundary' option does not render single spaces between words.
+	"editor.renderWhitespace": "boundary",
+	// Number of editors shown in the Open Editors pane.
+	"explorer.openEditors.visible": 0,
+	// List of tags, comma separated, that should have an extra newline before them. 'null' defaults to "head, body, /html".
+	"html.format.extraLiners": "body",
+	// Indent <head> and <body> sections.
+	"html.format.indentInnerHtml": true,
+	// Ignores the warning when there are too many changes in a repository.
+	"git.ignoreLimitWarning": true,
+	// Controls whether the fold controls on the gutter are automatically hidden.
+	"editor.showFoldingControls": "always",
+	// Enable/disable navigation breadcrumbs
+	"breadcrumbs.enabled": true,
+	// Defines space handling after function keyword for anonymous functions.
+	"javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+	// Prevent files from staying open if just clicking on them to preview.
+	"workbench.editor.enablePreview": true,
+	// Enable/disable default HTML formatter.
+	"html.format.enable": false,
+}

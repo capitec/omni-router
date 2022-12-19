@@ -1,0 +1,27 @@
+{
+	"files": [
+		"README.md"
+	],
+	"imageSize": 100,
+	"commit": false,
+	"contributors": [
+		{
+			"login": "jn42lm1",
+			"name": "jn42lm1",
+			"avatar_url": "https://avatars2.githubusercontent.com/u/54233338?v=4",
+			"profile": "https://github.com/jn42lm1",
+			"contributions": [
+				"code",
+				"doc"
+			]
+		}
+	],
+	"badgeTemplate": "<a href=\"#contributors-\"><img src=\"https://img.shields.io/badge/all%20contributors-<%= contributors.length %>-orange?style=flat-square\" /></a>",
+	"contributorsPerLine": 7,
+	"projectName": "omni-router",
+	"projectOwner": "capitec",
+	"repoType": "github",
+	"repoHost": "https://github.com",
+	"skipCi": true,
+	"commitConvention": "none"
+}
