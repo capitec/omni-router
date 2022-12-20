@@ -38,6 +38,9 @@
 
 Omni router lets you ...
 
+var(--omni-router-animation-duration, 300ms)
+var(--omni-router-page-background, #FFFFFF)
+
 
 ## Introduction
 

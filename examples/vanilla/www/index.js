@@ -119,9 +119,9 @@
     };
   });
 
-  // src/views/ViewLogin.js
-  var require_ViewLogin = __commonJS(() => {
-    var ViewLogin = class extends HTMLElement {
+  // src/views/ViewFade.js
+  var require_ViewFade = __commonJS(() => {
+    var ViewFade = class extends HTMLElement {
       constructor() {
         super();
         this._router = Router.getInstance();
@@ -132,25 +132,71 @@
         template.innerHTML = `
 			<style>
 				:host {
-					/* Document this as a requirement for all views. */
-					
-					width: 100%;
-					height: 100%;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
 
-					position: absolute;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					right: 0;
+					overflow: auto;
 
-					background-color: white;
+					box-sizing: border-box;
+					padding: 20px;
+
+					--omni-router-page-background: #eeffee;
+				}
+
+				@media only screen and (max-height: 720px) {
+					:host {
+						justify-content: flex-start;
+					}
+				}
+
+				.logo {
+					font-size: 128px;
+				}
+
+				h1 {
+					margin: 20px 0px;
+
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 32px;
+					font-weight: bold;
+				}
+
+				p {
+					margin: 20px 0px;
+
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 16px;
+					font-weight: normal;
+
+					text-align: center;
+				}
+
+				p:last-of-type {
+					margin-top: 0px;
+				}
+
+				button {
+					margin: 20px 0px;
+					padding: 20px;
+
+					border: none;
+					border-radius: 10px;
+					box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+					background-color: #ffffff;
 				}
 			</style>
 
-			<h1>Login</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+			<div class="logo">\u{1F3DD}</div>
 
-			<button id="back">Back</button>
+			<h1>Fade</h1>
+			
+			<p>\u{1F44B} Hey there, I animated into view with a <strong>fade</strong> animation!</p>
+			<p>If you press back here or go back via the browser history, I'll <strong>fade</strong> out.</p>
+
+			<button id="back">\u2B05 Go Back</button>
 		`;
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true));
@@ -160,12 +206,12 @@
         this._router.pop();
       }
     };
-    customElements.define("view-login", ViewLogin);
+    customElements.define("view-fade", ViewFade);
   });
 
-  // src/views/ViewRegister.js
-  var require_ViewRegister = __commonJS(() => {
-    var ViewRegister = class extends HTMLElement {
+  // src/views/ViewSlide.js
+  var require_ViewSlide = __commonJS(() => {
+    var ViewSlide = class extends HTMLElement {
       constructor() {
         super();
         this._router = Router.getInstance();
@@ -176,25 +222,71 @@
         template.innerHTML = `
 			<style>
 				:host {
-					/* Document this as a requirement for all views. */
-					
-					width: 100%;
-					height: 100%;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
 
-					position: absolute;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					right: 0;
+					overflow: auto;
 
-					background-color: white;
+					box-sizing: border-box;
+					padding: 20px;
+
+					--omni-router-page-background: #eeeeff;
+				}
+
+				@media only screen and (max-height: 720px) {
+					:host {
+						justify-content: flex-start;
+					}
+				}
+
+				.logo {
+					font-size: 128px;
+				}
+
+				h1 {
+					margin: 20px 0px;
+
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 32px;
+					font-weight: bold;
+				}
+
+				p {
+					margin: 20px 0px;
+
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 16px;
+					font-weight: normal;
+
+					text-align: center;
+				}
+
+				p:last-of-type {
+					margin-top: 0px;
+				}
+
+				button {
+					margin: 20px 0px;
+					padding: 20px;
+
+					border: none;
+					border-radius: 10px;
+					box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+					background-color: #ffffff;
 				}
 			</style>
 
-			<h1>Register</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+			<div class="logo">\u26F3</div>
 
-			<button id="back">Back</button>
+			<h1>Slide</h1>
+			
+			<p>\u{1F44B} Hey there, I animated into view with a <strong>slide</strong> animation!</p>
+			<p>If you press back here or go back via the browser history, I'll <strong>slide</strong> out.</p>
+
+			<button id="back">\u2B05 Go Back</button>
 		`;
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true));
@@ -204,12 +296,12 @@
         this._router.pop();
       }
     };
-    customElements.define("view-register", ViewRegister);
+    customElements.define("view-slide", ViewSlide);
   });
 
-  // src/views/ViewHome.js
-  var require_ViewHome = __commonJS(() => {
-    var ViewHome = class extends HTMLElement {
+  // src/views/ViewPop.js
+  var require_ViewPop = __commonJS(() => {
+    var ViewPop = class extends HTMLElement {
       constructor() {
         super();
         this._router = Router.getInstance();
@@ -220,25 +312,71 @@
         template.innerHTML = `
 			<style>
 				:host {
-					/* Document this as a requirement for all views. */
-					
-					width: 100%;
-					height: 100%;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
 
-					position: absolute;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					right: 0;
+					overflow: auto;
 
-					background-color: white;
+					box-sizing: border-box;
+					padding: 20px;
+
+					--omni-router-page-background: #ffeeee;
+				}
+
+				@media only screen and (max-height: 720px) {
+					:host {
+						justify-content: flex-start;
+					}
+				}
+
+				.logo {
+					font-size: 128px;
+				}
+
+				h1 {
+					margin: 20px 0px;
+
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 32px;
+					font-weight: bold;
+				}
+
+				p {
+					margin: 20px 0px;
+
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 16px;
+					font-weight: normal;
+
+					text-align: center;
+				}
+
+				p:last-of-type {
+					margin-top: 0px;
+				}
+
+				button {
+					margin: 20px 0px;
+					padding: 20px;
+
+					border: none;
+					border-radius: 10px;
+					box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+					background-color: #ffffff;
 				}
 			</style>
 
-			<h1>Home</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+			<div class="logo">\u{1F3AE}</div>
 
-			<button id="back">Back</button>
+			<h1>Pop</h1>
+			
+			<p>\u{1F44B} Hey there, I animated into view with a <strong>pop</strong> animation!</p>
+			<p>If you press back here or go back via the browser history, I'll <strong>pop</strong> out.</p>
+
+			<button id="back">\u2B05 Go Back</button>
 		`;
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true));
@@ -248,12 +386,12 @@
         this._router.pop();
       }
     };
-    customElements.define("view-home", ViewHome);
+    customElements.define("view-pop", ViewPop);
   });
 
-  // src/views/ViewPageNotFound.js
-  var require_ViewPageNotFound = __commonJS(() => {
-    var ViewPageNotFound = class extends HTMLElement {
+  // src/views/ViewGuarded.js
+  var require_ViewGuarded = __commonJS(() => {
+    var ViewGuarded = class extends HTMLElement {
       constructor() {
         super();
         this._router = Router.getInstance();
@@ -264,25 +402,147 @@
         template.innerHTML = `
 			<style>
 				:host {
-					/* Document this as a requirement for all views. */
-					
-					width: 100%;
-					height: 100%;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
 
-					position: absolute;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					right: 0;
+					overflow: auto;
 
-					background-color: white;
+					box-sizing: border-box;
+					padding: 20px;
+
+					--omni-router-page-background: #eeffff;
+				}
+
+				@media only screen and (max-height: 720px) {
+					:host {
+						justify-content: flex-start;
+					}
+				}
+
+				.logo {
+					font-size: 128px;
+				}
+
+				h1 {
+					margin: 20px 0px;
+
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 32px;
+					font-weight: bold;
+				}
+
+				p {
+					margin: 20px 0px;
+
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 16px;
+					font-weight: normal;
+				}
+
+				button {
+					margin: 20px 0px;
+					padding: 20px;
+
+					border: none;
+					border-radius: 10px;
+					box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+					background-color: #ffffff;
 				}
 			</style>
+
+			<div class="logo">\u{1F3AF}</div>
+
+			<h1>Guarded Route</h1>
+			
+			<p>\u{1F44B} Hey there, I'm protected by a guard function.</p>
+
+			<button id="back">\u2B05 Go Back</button>
+		`;
+        this.attachShadow({mode: "open"});
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
+        this.shadowRoot.querySelector("#back").addEventListener("click", () => this._navigateBack());
+      }
+      _navigateBack() {
+        this._router.pop();
+      }
+    };
+    customElements.define("view-guarded", ViewGuarded);
+  });
+
+  // src/views/ViewFallback.js
+  var require_ViewFallback = __commonJS(() => {
+    var ViewFallback = class extends HTMLElement {
+      constructor() {
+        super();
+        this._router = Router.getInstance();
+        this._createDOM();
+      }
+      _createDOM() {
+        const template = document.createElement("template");
+        template.innerHTML = `
+			<style>
+				:host {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+
+					overflow: auto;
+
+					box-sizing: border-box;
+					padding: 20px;
+
+					--omni-router-page-background: #ffffee;
+				}
+
+				@media only screen and (max-height: 720px) {
+					:host {
+						justify-content: flex-start;
+					}
+				}
+
+				.logo {
+					font-size: 128px;
+				}
+
+				h1 {
+					margin: 20px 0px;
+
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 32px;
+					font-weight: bold;
+				}
+
+				p {
+					margin: 20px 0px;
+
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 16px;
+					font-weight: normal;
+				}
+
+				button {
+					margin: 20px 0px;
+					padding: 20px;
+
+					border: none;
+					border-radius: 10px;
+					box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+					background-color: #ffffff;
+				}
+			</style>
+
+			<div class="logo">\u26C5</div>
 
 			<h1>Page Not Found</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-			<button id="back">Back</button>
+			<p>Oops, looks like the page you are looking for does not exist.</p>
+
+			<button id="back">\u2B05 Go Back</button>
 		`;
         this.attachShadow({mode: "open"});
         this.shadowRoot.appendChild(template.content.cloneNode(true));
@@ -292,7 +552,7 @@
         this._router.pop();
       }
     };
-    customElements.define("view-page-not-found", ViewPageNotFound);
+    customElements.define("view-fallback", ViewFallback);
   });
 
   // ../../node_modules/query-string/base.js
@@ -978,6 +1238,21 @@
 				width: 100%;
 				height: 100%;
 				overflow: hidden;
+
+				position: relative;
+			}
+
+			.page {
+				width: 100%;
+				height: 100%;
+
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+
+				background: var(--omni-router-page-background, #FFFFFF);
 			}
 
 			/** Fade In Animation */
@@ -987,7 +1262,7 @@
 			}
 
 			.fade-in.animate {
-				animation: fadein 300ms both;
+				animation: fadein var(--omni-router-animation-duration, 300ms) both;
 				
 				z-index: 100;
 			}
@@ -1008,7 +1283,7 @@
 			}
 
 			.fade-out.animate {
-				animation: fadeout 300ms both;
+				animation: fadeout var(--omni-router-animation-duration, 300ms) both;
 
 				z-index: 100;
 			}
@@ -1029,7 +1304,7 @@
 			}
 
 			.slide-in.animate {
-				animation: slidein 300ms both;
+				animation: slidein var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
 
 				z-index: 100;
@@ -1051,7 +1326,7 @@
 			}
 
 			.slide-out.animate {
-				animation: slideout 300ms both;
+				animation: slideout var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
 
 				z-index: 100;
@@ -1073,7 +1348,7 @@
 			}
 
 			.pop-in.animate {
-				animation: popin 300ms both;
+				animation: popin var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
 
 				z-index: 100;
@@ -1095,7 +1370,7 @@
 			}
 
 			.pop-out.animate {
-				animation: popout 300ms both;
+				animation: popout var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
 
 				z-index: 100;
@@ -1161,6 +1436,7 @@
       }
       const oldRouteComponent = this._getCurrentRouteComponent();
       const newRouteComponent = document.createElement(route.name);
+      newRouteComponent.classList.add("page");
       await new Promise((resolve) => {
         var _a, _b, _c, _d;
         if (animation === "fade-in" || animation === "slide-in" || animation === "pop-in") {
@@ -1226,36 +1502,43 @@
   var AppShell = class extends HTMLElement {
     constructor() {
       super();
+      this._lockActive = true;
       this._createDOM();
       this._router = Router.getInstance();
       this._router.addRoute({
-        name: "view-login",
-        title: "Log In",
-        path: "/login",
+        name: "view-fade",
+        title: "Fade",
+        path: "/fade",
         animation: "fade",
-        load: () => Promise.resolve().then(() => __toModule(require_ViewLogin())),
+        load: () => Promise.resolve().then(() => __toModule(require_ViewFade())),
         isDefault: true
       });
       this._router.addRoute({
-        name: "view-register",
-        title: "Register",
-        path: "/register",
+        name: "view-slide",
+        title: "Slide",
+        path: "/slide",
         animation: "slide",
-        load: () => Promise.resolve().then(() => __toModule(require_ViewRegister()))
+        load: () => Promise.resolve().then(() => __toModule(require_ViewSlide()))
       });
       this._router.addRoute({
-        name: "view-home",
-        title: "Home",
-        path: "/home",
+        name: "view-pop",
+        title: "Pop",
+        path: "/pop",
         animation: "pop",
-        load: () => Promise.resolve().then(() => __toModule(require_ViewHome())),
-        guard: () => this._isAuthenticated()
+        load: () => Promise.resolve().then(() => __toModule(require_ViewPop()))
       });
       this._router.addRoute({
-        name: "view-page-not-found",
-        title: "Page Not Found",
+        name: "view-guarded",
+        title: "Guarded Route",
+        path: "/guarded",
+        load: () => Promise.resolve().then(() => __toModule(require_ViewGuarded())),
+        guard: () => !this._isLocked()
+      });
+      this._router.addRoute({
+        name: "view-fallback",
+        title: "Fallback Route",
         path: "/error404",
-        load: () => Promise.resolve().then(() => __toModule(require_ViewPageNotFound())),
+        load: () => Promise.resolve().then(() => __toModule(require_ViewFallback())),
         isFallback: true
       });
       this._router.load();
@@ -1278,98 +1561,202 @@
 					display: none;
 				}
 
+				/* Header */
+
 				header {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: flex-start;
+
+					padding: 40px 20px;
+
+					background-color: #FFFFFF;
+
+					transition: all .5s linear;
+				}
+
+				header > img {
+					width: 150px;
+
+					transition: all .5s linear;
+				}
+
+				header > h1 {
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 32px;
+					font-weight: bold;
+
+					padding: 0px;
+					margin: 20px 0px 0px 0px;
+
+					transition: all .5s linear;
+				}
+
+				@media only screen and (max-width: 1000px) {
+					header {
+						padding: 20px;
+					}
+
+					header > img {
+						width: 64px;
+					}
+
+					header > h1 {
+						font-size: 24px;
+					}
+				}
+
+				@media only screen and (max-height: 700px) {
+					header {
+						display: none;
+					}
+				}
+
+				/* Nav Bar */
+
+				nav {
+					display: flex;
+					flex-direction: row;
+					align-items: stretch;
+					justify-content: flex-start;
+
+					background-color: #209dee;
+					
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 16px;
+					font-weight: normal;
+
+					padding: 0px 20px;
+
+					flex-shrink: 0;
+					flex-wrap: wrap;
+
+					transition: all .5s linear;
+				}
+
+				nav > a {
 					display: flex;
 					flex-direction: row;
 					align-items: center;
 					justify-content: flex-start;
 
-					background-color: cornflowerblue;
+					padding: 0px 20px;
 
+					color: #FFFFFF;
+					
 					font-family: Arial, Helvetica, sans-serif;
 					font-size: 16px;
+					font-weight: normal;
+
+					text-decoration: none;
+
+					height: 64px;
+
+					cursor: pointer;
+				}
+
+				nav > a:hover {
+					background-color: #1b86cb;
+				}
+
+				nav > a .emoji {
+					font-size: 24px;
+					margin-right: 10px;
+				}
+
+				nav > a > small {
 					font-weight: bold;
-
-					padding: 10px 20px;
-
-					text-align: center;
+					margin-left: 5px;
+					display: inline;
 				}
 
-				header > button {
+				nav > a > small.locked {
+					color: #f7bd6a;
+				}
+
+				nav > a > small.unlocked {
+					color: #76fc78;
+				}
+
+				nav > a.push-right {
 					margin-left: auto;
-
-					padding: 10px 20px;
-
-					border-radius: 6px;
-
-					background-color: #FFFFFFCC;
-
-					border: 1px solid grey;
 				}
 
-				nav {
-					display: flex;
-					flex-direction: row;
-					align-items: center;
-					justify-content: center;
+				@media only screen and (max-width: 1000px) {
+					nav {
+						padding: 0px;
+						justify-content: center;
+					}
 
-					background-color: lightgrey;
+					nav > a {
+						height: 48px;
+					}
 
-					padding: 10px 20px;
+					nav > a.push-right {
+						margin-left: 0px;
+					}
 				}
 
-				nav > a {
-					padding: 10px;
-				}
+				/* Content Area */
 
 				omni-router-outlet {
 					flex: 1 1 auto;
-
-					position: relative; /* move to RouterOutlet.js */
 				}
 			</style>
 
 			<header>
-				<h1>My App</h1>
-				<button id="login">Login</button>
-				<button id="logout" class="hidden">Logout</button>
+				<img src="./assets/logo.png">
+				<h1>Omni Router Demo</h1>
 			</header>
-
+			
 			<nav>
-				<a href="/login">Login</a>
-				<a href="/register">Register</a>
-				<a href="/home">Home</a>
+				<a href="/"><span class="emoji">\u{1F3E0}</span>Default Route</a>
+				<a href="/fade">Fade</a>
+				<a href="/slide">Slide</a>
+				<a href="/pop">Pop</a>
+				<a href="/guarded">Guarded Route <small class="locked">[Locked]</small><small class="unlocked hidden">[Unlocked]</small></a>
+				<a href="/some-missing-path">Fallback Route</a>
+
+				<a id="login" class="push-right">Unlock Guard</a>
+				<a id="logout" class="push-right hidden">Lock Guard</a>
 			</nav>
 			
 			<omni-router-outlet></omni-router-outlet>
 		`;
       this.attachShadow({mode: "open"});
       this.shadowRoot.appendChild(template.content.cloneNode(true));
-      this.shadowRoot.querySelector("#login").addEventListener("click", () => this._login());
-      this.shadowRoot.querySelector("#logout").addEventListener("click", () => this._logout());
+      this.shadowRoot.querySelector("#login").addEventListener("click", () => this._unlock());
+      this.shadowRoot.querySelector("#logout").addEventListener("click", () => this._lock());
       this.shadowRoot.querySelectorAll("a").forEach((link) => {
         const path = link.getAttribute("href");
         link.onclick = (e) => {
           e.preventDefault();
-          this._router.push(path);
+          if (path) {
+            this._router.push(path);
+          }
         };
       });
     }
-    _login() {
+    _unlock() {
       this.shadowRoot.querySelector("#login").classList.add("hidden");
       this.shadowRoot.querySelector("#logout").classList.remove("hidden");
-      this._userInfo = {name: "Test User"};
+      this.shadowRoot.querySelector("a small.locked").classList.add("hidden");
+      this.shadowRoot.querySelector("a small.unlocked").classList.remove("hidden");
+      this._lockActive = false;
     }
-    _logout() {
+    _lock() {
       this.shadowRoot.querySelector("#login").classList.remove("hidden");
       this.shadowRoot.querySelector("#logout").classList.add("hidden");
-      this._userInfo = null;
+      this.shadowRoot.querySelector("a small.locked").classList.remove("hidden");
+      this.shadowRoot.querySelector("a small.unlocked").classList.add("hidden");
+      this._lockActive = true;
     }
-    _isAuthenticated() {
-      if (this._userInfo) {
-        return true;
+    _isLocked() {
+      if (this._lockActive) {
+        alert("Route locked. Unlock to navigate...");
       }
-      return false;
+      return this._lockActive;
     }
   };
   customElements.define("app-shell", AppShell);

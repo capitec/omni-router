@@ -1,4 +1,4 @@
-export { Router } from './Router.js';
+export { Router } from './Router';
 export { RouterOutlet } from './RouterOutlet';
 
 export {

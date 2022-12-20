@@ -66,6 +66,21 @@ export class RouterOutlet extends HTMLElement {
 				width: 100%;
 				height: 100%;
 				overflow: hidden;
+
+				position: relative;
+			}
+
+			.page {
+				width: 100%;
+				height: 100%;
+
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+
+				background: var(--omni-router-page-background, #FFFFFF);
 			}
 
 			/** Fade In Animation */
@@ -75,7 +90,7 @@ export class RouterOutlet extends HTMLElement {
 			}
 
 			.fade-in.animate {
-				animation: fadein 300ms both;
+				animation: fadein var(--omni-router-animation-duration, 300ms) both;
 				
 				z-index: 100;
 			}
@@ -96,7 +111,7 @@ export class RouterOutlet extends HTMLElement {
 			}
 
 			.fade-out.animate {
-				animation: fadeout 300ms both;
+				animation: fadeout var(--omni-router-animation-duration, 300ms) both;
 
 				z-index: 100;
 			}
@@ -117,7 +132,7 @@ export class RouterOutlet extends HTMLElement {
 			}
 
 			.slide-in.animate {
-				animation: slidein 300ms both;
+				animation: slidein var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
 
 				z-index: 100;
@@ -139,7 +154,7 @@ export class RouterOutlet extends HTMLElement {
 			}
 
 			.slide-out.animate {
-				animation: slideout 300ms both;
+				animation: slideout var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
 
 				z-index: 100;
@@ -161,7 +176,7 @@ export class RouterOutlet extends HTMLElement {
 			}
 
 			.pop-in.animate {
-				animation: popin 300ms both;
+				animation: popin var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
 
 				z-index: 100;
@@ -183,7 +198,7 @@ export class RouterOutlet extends HTMLElement {
 			}
 
 			.pop-out.animate {
-				animation: popout 300ms both;
+				animation: popout var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
 
 				z-index: 100;
@@ -320,6 +335,8 @@ export class RouterOutlet extends HTMLElement {
 		// Add the page component to the router display.
 		const oldRouteComponent = this._getCurrentRouteComponent();
 		const newRouteComponent = document.createElement(route.name);
+
+		newRouteComponent.classList.add('page');
 
 		// Start a task to animate in the new route component and animate out the old route component.
 		await new Promise<void>((resolve) => {
