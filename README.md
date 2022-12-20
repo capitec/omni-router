@@ -1,8 +1,8 @@
-<p align="center"><br><img src="https://raw.githubusercontent.com/capitec/omni-components/develop/eleventy/assets/images/logo.png" width="128" height="128"/></p>
+<p align="center"><br><img src="./docs/logo.png" width="128" height="128"/></p>
 
 <h3 align="center">Omni Router</h3>
 <p align="center"><strong><code>@capitec/omni-router</code></strong></p>
-<p align="center">Framework agnostic <!--and zero dependency -->client-side web component router</p>
+<p align="center">Framework agnostic, and zero dependency, client-side web component router</p>
 
 <br />
 
@@ -38,8 +38,15 @@
 
 Omni router lets you ...
 
+<!--
 var(--omni-router-animation-duration, 300ms)
 var(--omni-router-page-background, #FFFFFF)
+
+<base href="/">
+
+:variable
+:variable?
+-->
 
 
 ## Introduction

@@ -6,7 +6,8 @@
 		"target": "es2019",
 		"module": "esnext",
 		"lib": [
-			"DOM",
+			"dom",
+			"dom.iterable",
 			"ESNext"
 		],
 		"outDir": "./dist",

@@ -26,7 +26,7 @@
 		"test": "echo \"Error: no test specified\" && exit 0",
 		"lint": "eslint src/**/*.{js,ts}",
 		"docs": "npm run docs:api && npm run docs:contributors",
-		"docs:api": "npx typedoc --out docs src/index.ts",
+		"docs:api": "npx typedoc --out docs/api src/index.ts",
 		"docs:contributors": "npx all-contributors generate",
 		"contributors:add": "npx all-contributors add",
 		"prepublish": "npm run build"
@@ -35,10 +35,6 @@
 		"web components",
 		"router"
 	],
-	"dependencies": {
-		"query-string": "^8.0.3",
-		"regexparam": "^2.0.1"
-	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^5.23.0",
 		"@typescript-eslint/parser": "^5.23.0",

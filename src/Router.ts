@@ -1,6 +1,3 @@
-import queryString from 'query-string';
-import { parse as regexparam } from 'regexparam';
-
 import { Route, RouteAnimationIn, RouteAnimationOut, RouterEventType, RoutedLocation } from './types';
 
 /**
@@ -287,11 +284,18 @@ export class Router {
 		// Lookup and return the route that best matches the search path if a path match is found.
 		const lookupRoute = this._routes.find(r => {
 
-			if (regexparam(r.path).pattern.test(path)) {
-				return true;
+			const routeParts = r.path.split('/');
+
+			for (let i = 0; i < routeParts.length; i++) {
+
+				if (routeParts[i].endsWith('?')) {
+					routeParts[i] = '?[-.a-zA-Z0-9]*';
+				} else if (routeParts[i].startsWith(':')) {
+					routeParts[i] = '[-.a-zA-Z0-9]+';
+				}
 			}
 
-			return false;
+			return new RegExp('^' + routeParts.join('\\/') + '$').test(path);
 		});
 
 		if (lookupRoute) {
@@ -514,7 +518,7 @@ export class Router {
 			hash: window.location.hash?.replace('#', '') || undefined,
 
 			pathParams: this._getPathParams(window.location.pathname, route.path) || undefined,
-			queryParams: this._getQueryParams(window.location.search) || undefined,
+			queryParams: Object.fromEntries(new URLSearchParams(window.location.search)) || undefined,
 
 			route: route
 		};
@@ -560,53 +564,27 @@ export class Router {
 	 */
 	private _getPathParams(path: string, routePath: string): object | null {
 
-		// Get the route config path regex pattern.
-		const parsedPath = regexparam(routePath);
+		const pathParts = path.split('/');
+		const routeParts = routePath.split('/');
 
-		// Match the given path against the regex pattern to extract the path param values, removing
-		// the first match as it is always the full text match and not a path param value.
-		const matches = parsedPath.pattern.exec(path)?.splice(1);
-
-		if (!matches) {
-			return null;
-		}
-
-		// Convert the path to an key value pair object.
+		// Convert the path to a key value pair object.
 		const pathParams: {
 			[key: string]: string | null
 		} = {};
 
-		for (let i = 0; i < parsedPath.keys.length; i++) {
-			pathParams[parsedPath.keys[i]] = matches[i] || null;
+		for (let i = 0; i < routeParts.length; i++) {
+
+			if (routeParts[i].startsWith(':')) {
+				pathParams[routeParts[i].replace(':', '').replace('?', '')] = pathParts[i];
+			}
 		}
 
-		// Ensure there are value in the result.
+		// Ensure there are values in the result.
 		if (Object.keys(pathParams).length === 0) {
 			return null;
 		}
 
 		// Return the key value pairs.
 		return pathParams;
-	}
-
-	/**
-	 * Get the query parameters for a given URL query string.
-	 *
-	 * @param query - The URL query string part to find parameter for.
-	 * 
-	 * @returns The query string keys and values.
-	 */
-	private _getQueryParams(query: string): object | null {
-
-		// Convert the query string to an key value pair object.
-		const queryParams = queryString.parse(query);
-
-		// Ensure there are value in the result.
-		if (Object.keys(queryParams).length === 0) {
-			return null;
-		}
-
-		// Return the key value pairs.
-		return queryParams;
 	}
 }

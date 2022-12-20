@@ -15,12 +15,14 @@
 	"type": "module",
 	"scripts": {
 		"build": "node esbuild.config.js",
-		"start": "node esbuild.config.js -w"
+		"start": "wds --node-resolve --open --watch --root-dir src --app-index src/index.html"
 	},
 	"dependencies": {
 		"@capitec/omni-router": "file:../../dist/index.js"
 	},
 	"devDependencies": {
+		"@web/dev-server": "^0.1.35",
+		"@web/dev-server-esbuild": "^0.3.3",
 		"esbuild": "0.16.9",
 		"esbuild-serve": "^1.0.1"
 	}
