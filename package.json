@@ -19,7 +19,15 @@
 		"node": "16.x"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"!dist/*.tests.*",
+		"!dist/*.test.*",
+		"!dist/*.spec.*",
+		"src/*.ts",
+		"src/*.js",
+		"!src/*.spec.*",
+		"!src/*.tests.*",
+		"!src/*.test.*"
 	],
 	"scripts": {
 		"build": "tsc",

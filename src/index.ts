@@ -1,8 +1,4 @@
-export { Router } from './Router';
-export { RouterOutlet } from './RouterOutlet';
+export { Router } from './Router.js';
+export { RouterOutlet } from './RouterOutlet.js';
 
-export {
-	RouteAnimation,
-	RouteLoadFunction,
-	RouteGuardFunction
-} from './types';
+export { RouteAnimation, RouteLoadFunction, RouteGuardFunction } from './types.js';

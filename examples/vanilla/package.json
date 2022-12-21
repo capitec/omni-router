@@ -18,7 +18,7 @@
 		"start": "wds --node-resolve --open --watch --root-dir src --app-index src/index.html"
 	},
 	"dependencies": {
-		"@capitec/omni-router": "file:../../dist/index.js"
+		"@capitec/omni-router": "file:../.."
 	},
 	"devDependencies": {
 		"@web/dev-server": "^0.1.35",
