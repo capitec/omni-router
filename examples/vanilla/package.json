@@ -14,7 +14,7 @@
 	},
 	"type": "module",
 	"scripts": {
-		"build": "node esbuild.config.js",
+		"build": "node scripts/build.js",
 		"start": "wds --node-resolve --open --watch --root-dir src --app-index src/index.html"
 	},
 	"dependencies": {
@@ -22,8 +22,9 @@
 	},
 	"devDependencies": {
 		"@web/dev-server": "^0.1.35",
-		"@web/dev-server-esbuild": "^0.3.3",
+		"command-line-args": "^5.2.1",
 		"esbuild": "0.16.9",
-		"esbuild-serve": "^1.0.1"
+		"fs-extra": "^10.1.0",
+		"globby": "^13.1.2"
 	}
 }
