@@ -35,7 +35,7 @@
 			"single",
 			{
 				"allowTemplateLiterals": true,
-                "avoidEscape": true
+				"avoidEscape": true
 			}
 		],
 		"@typescript-eslint/no-inferrable-types": "off"

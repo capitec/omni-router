@@ -40,62 +40,64 @@ export type RouterEventType = 'route-loaded';
  * A navigable route configuration.
  */
 export type Route = {
-    /** The tag name of the web component to render for this route. */
-    name: string;
 
-    /** The relative URL path for the route to set in the browser navigation bar. */
-    path: string;
+	/** The tag name of the web component to render for this route. */
+	name: string;
 
-    /** The window title to set when the route is loaded. */
-    title?: string;
+	/** The relative URL path for the route to set in the browser navigation bar. */
+	path: string;
 
-    /** The effect to animate the route into and out of view with, e.g. fade, slide, pop. */
-    animation?: RouteAnimation;
+	/** The window title to set when the route is loaded. */
+	title?: string;
 
-    /** Function to execute that lazy loads the web component. */
-    load?: RouteLoadFunction;
+	/** The effect to animate the route into and out of view with, e.g. fade, slide, pop. */
+	animation?: RouteAnimation;
 
-    /** unction to execute to determine if the view is allowed to be loaded. */
-    guard?: RouteGuardFunction;
+	/** Function to execute that lazy loads the web component. */
+	load?: RouteLoadFunction;
 
-    /** Set to load this route if the base URL of the web app is loaded. */
-    isDefault?: boolean;
+	/** unction to execute to determine if the view is allowed to be loaded. */
+	guard?: RouteGuardFunction;
 
-    /** Set to load this route by if no route is loaded. */
-    isFallback?: boolean;
+	/** Set to load this route if the base URL of the web app is loaded. */
+	isDefault?: boolean;
+
+	/** Set to load this route by if no route is loaded. */
+	isFallback?: boolean;
 };
 
 /**
  * The routed location information.
  */
 export type RoutedLocation = {
-    /** The full browser URL, e.g.http://localhost:3000/todos/1234?foo=bar#hello */
-    href: string;
 
-    /** The URL protocol part, e.g. "http" */
-    protocol: string;
+	/** The full browser URL, e.g.http://localhost:3000/todos/1234?foo=bar#hello */
+	href: string;
 
-    /** The URL host part, e.g. "localhost" */
-    host: string;
+	/** The URL protocol part, e.g. "http" */
+	protocol: string;
 
-    /** The URL port part, e.g. 3000 */
-    port?: number;
+	/** The URL host part, e.g. "localhost" */
+	host: string;
 
-    /** The URL path part, e.g. "/todos/1234" */
-    path?: string;
+	/** The URL port part, e.g. 3000 */
+	port?: number;
 
-    /** The URL query string part, e.g. "?foo=bar" */
-    query?: string;
+	/** The URL path part, e.g. "/todos/1234" */
+	path?: string;
 
-    /** The URL anchor tag part, e.g. "hello" */
-    hash?: string;
+	/** The URL query string part, e.g. "?foo=bar" */
+	query?: string;
 
-    /** The URL path part as a key value pairs, e.g. \{ id: 1234 \} */
-    pathParams?: object;
+	/** The URL anchor tag part, e.g. "hello" */
+	hash?: string;
 
-    /** The URL query string part as a key value pairs, e.g. \{ foo: "bar" \} */
-    queryParams?: object;
+	/** The URL path part as a key value pairs, e.g. \{ id: 1234 \} */
+	pathParams?: object;
 
-    /** The route configuration that matches the location. */
-    route?: Route;
+	/** The URL query string part as a key value pairs, e.g. \{ foo: "bar" \} */
+	queryParams?: object;
+
+	/** The route configuration that matches the location. */
+	route?: Route;
 };

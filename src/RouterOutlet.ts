@@ -5,11 +5,12 @@ import { RouteAnimationIn, RouteAnimationOut, RoutedLocation } from './types.js'
  * An animation task to load a route with.
  */
 type RouteTask = {
-    /** The location to route to. */
-    routedLocation: RoutedLocation;
 
-    /** The animation to apply when routing. */
-    animation?: RouteAnimationIn | RouteAnimationOut;
+	/** The location to route to. */
+	routedLocation: RoutedLocation;
+
+	/** The animation to apply when routing. */
+	animation?: RouteAnimationIn | RouteAnimationOut;
 };
 
 /**
@@ -24,41 +25,43 @@ type RouteTask = {
  * ```
  */
 export class RouterOutlet extends HTMLElement {
-    /** The instance to the router singleton. */
-    _router: Router;
 
-    /** The routed location that is currently loaded in the outlet. */
-    _currentLocation?: RoutedLocation;
+	/** The instance to the router singleton. */
+	_router: Router;
 
-    /** The routed location that was previously loaded in the outlet. */
-    _previousLocation?: RoutedLocation;
+	/** The routed location that is currently loaded in the outlet. */
+	_currentLocation?: RoutedLocation;
 
-    /** Indicator if there is a routing animation currently playing. */
-    _isAnimating: boolean;
+	/** The routed location that was previously loaded in the outlet. */
+	_previousLocation?: RoutedLocation;
 
-    /** List of queued navigation animation tasks. */
-    _animationQueue: RouteTask[] = [];
+	/** Indicator if there is a routing animation currently playing. */
+	_isAnimating: boolean;
 
-    // --------------
-    // INITIALIZATION
-    // --------------
+	/** List of queued navigation animation tasks. */
+	_animationQueue: RouteTask[] = [];
 
-    /**
-     * Initializes the component.
-     */
-    constructor() {
-        super();
+	// --------------
+	// INITIALIZATION
+	// --------------
 
-        // Initialize default properties.
-        this._router = Router.getInstance();
-        this._isAnimating = false;
+	/**
+	 * Initializes the component.
+	 */
+	constructor() {
 
-        // Create the element shadow root.
-        const shadow = this.attachShadow({ mode: 'open' });
+		super();
 
-        // Set component styles.
-        const style = document.createElement('style');
-        style.textContent = `
+		// Initialize default properties.
+		this._router = Router.getInstance();
+		this._isAnimating = false;
+
+		// Create the element shadow root.
+		const shadow = this.attachShadow({ mode: 'open' });
+
+		// Set component styles.
+		const style = document.createElement('style');
+		style.textContent = `
 			:host {
 				width: 100%;
 				height: 100%;
@@ -211,234 +214,251 @@ export class RouterOutlet extends HTMLElement {
 			}
 		`;
 
-        shadow.appendChild(style);
-    }
+		shadow.appendChild(style);
+	}
 
-    /**
-     * Setup the component once added to the DOM.
-     */
-    connectedCallback(): void {
-        // Load the new route when the router navigation changes.
-        this._router.onNavigate = (route, animation): Promise<void> => this.loadRoute(route, animation);
-    }
+	/**
+	 * Setup the component once added to the DOM.
+	 */
+	connectedCallback(): void {
 
-    /**
-     * Clean up the component once removed from the DOM.
-     */
-    disconnectedCallback(): void {
-        // Stop rendering on router navigation changes.
-        this._router.onNavigate = undefined;
-    }
+		// Load the new route when the router navigation changes.
+		this._router.onNavigate = (route, animation): Promise<void> => this.loadRoute(route, animation);
+	}
 
-    // ----------
-    // PROPERTIES
-    // ----------
+	/**
+	 * Clean up the component once removed from the DOM.
+	 */
+	disconnectedCallback(): void {
 
-    // n/a
+		// Stop rendering on router navigation changes.
+		this._router.onNavigate = undefined;
+	}
 
-    // --------------
-    // PUBLIC METHODS
-    // --------------
+	// ----------
+	// PROPERTIES
+	// ----------
 
-    /**
-     * Load a route into view.
-     *
-     * Note:
-     * As route components are animated in, this function may be called while an previous route load animation
-     * is still playing. In such cases the task will be queued and completed after the first animation finishes.
-     *
-     * @param routedLocation - The the routed location to load.
-     * @param animation - The animation to play to bring the new route into view.
-     */
-    private async loadRoute(routedLocation: RoutedLocation, animation?: RouteAnimationIn | RouteAnimationOut): Promise<void> {
-        // Ensure a valid route is provided.
-        const route = routedLocation.route;
+	// n/a
 
-        if (!route) {
-            return;
-        }
+	// --------------
+	// PUBLIC METHODS
+	// --------------
 
-        // Prevent loading the route if it is already in view.
-        if (this._currentLocation?.route?.name === route.name) {
-            return;
-        }
+	/**
+	 * Load a route into view.
+	 *
+	 * Note:
+	 * As route components are animated in, this function may be called while an previous route load animation
+	 * is still playing. In such cases the task will be queued and completed after the first animation finishes.
+	 *
+	 * @param routedLocation - The the routed location to load.
+	 * @param animation - The animation to play to bring the new route into view.
+	 */
+	private async loadRoute(routedLocation: RoutedLocation, animation?: RouteAnimationIn | RouteAnimationOut): Promise<void> {
 
-        // Queue the route load task.
-        this._animationQueue.push({
-            routedLocation,
-            animation
-        });
+		// Ensure a valid route is provided.
+		const route = routedLocation.route;
 
-        // Start processing the queue of route load tasks, if it is not running yet.
-        if (!this._isAnimating) {
-            await this._processNextQueueItem();
-        }
-    }
+		if (!route) {
+			return;
+		}
 
-    /**
-     * Process the queue of route load tasks.
-     */
-    async _processNextQueueItem(): Promise<void> {
-        // Remove the task next available from the queue.
-        const routeRequest = this._animationQueue.shift();
+		// Prevent loading the route if it is already in view.
+		if (this._currentLocation?.route?.name === route.name) {
+			return;
+		}
 
-        // Stop processing the queue if it is empty.
-        if (!routeRequest) {
-            // Mark the queue as done processing.
-            this._isAnimating = false;
+		// Queue the route load task.
+		this._animationQueue.push({
+			routedLocation,
+			animation
+		});
 
-            return;
-        }
+		// Start processing the queue of route load tasks, if it is not running yet.
+		if (!this._isAnimating) {
+			await this._processNextQueueItem();
+		}
+	}
 
-        // Mark the queue as busy processing.
-        this._isAnimating = true;
+	/**
+	 * Process the queue of route load tasks.
+	 */
+	async _processNextQueueItem(): Promise<void> {
 
-        // Get the routing task information.
-        const routedLocation = routeRequest.routedLocation;
-        const animation = routeRequest.animation;
+		// Remove the task next available from the queue.
+		const routeRequest = this._animationQueue.shift();
 
-        // Stop processing if the route provided is not vaild.
-        const route = routedLocation.route;
+		// Stop processing the queue if it is empty.
+		if (!routeRequest) {
 
-        if (!route) {
-            // Mark the queue as done processing.
-            this._isAnimating = false;
+			// Mark the queue as done processing.
+			this._isAnimating = false;
 
-            return;
-        }
+			return;
+		}
 
-        // Record the old and new routing locations.
-        this._previousLocation = this._currentLocation;
-        this._currentLocation = routedLocation;
+		// Mark the queue as busy processing.
+		this._isAnimating = true;
 
-        // Notify any subscribers that the route has start to load.
-        this.dispatchEvent(
-            new CustomEvent('navigation-started', {
-                detail: this._currentLocation,
-                bubbles: true,
-                composed: true
-            })
-        );
+		// Get the routing task information.
+		const routedLocation = routeRequest.routedLocation;
+		const animation = routeRequest.animation;
 
-        // Load the route component if required.
-        if (route.load) {
-            await route.load();
-        }
+		// Stop processing if the route provided is not vaild.
+		const route = routedLocation.route;
 
-        // Add the page component to the router display.
-        const oldRouteComponent = this._getCurrentRouteComponent();
-        const newRouteComponent = document.createElement(route.name);
+		if (!route) {
 
-        newRouteComponent.classList.add('page');
+			// Mark the queue as done processing.
+			this._isAnimating = false;
 
-        // Start a task to animate in the new route component and animate out the old route component.
-        await new Promise<void>((resolve) => {
-            if (animation === 'fade-in' || animation === 'slide-in' || animation === 'pop-in') {
-                // Set the animation type the new route component should use to animate in.
-                newRouteComponent.classList.add(animation);
+			return;
+		}
 
-                // Clean up the animation once done.
-                newRouteComponent.addEventListener('animationend', () => {
-                    // Clear the animation from the element.
-                    newRouteComponent.classList.remove(animation, 'animate');
+		// Record the old and new routing locations.
+		this._previousLocation = this._currentLocation;
+		this._currentLocation = routedLocation;
 
-                    // Remove the old route component from view.
-                    if (oldRouteComponent) {
-                        oldRouteComponent.remove();
-                    }
+		// Notify any subscribers that the route has start to load.
+		this.dispatchEvent(
+			new CustomEvent('navigation-started', {
+				detail: this._currentLocation,
+				bubbles: true,
+				composed: true
+			})
+		);
 
-                    // Mark the routing task as complete.
-                    resolve();
-                });
+		// Load the route component if required.
+		if (route.load) {
+			await route.load();
+		}
 
-                // Add the new route component to the top of the view stack so the the animation is visible.
-                this.shadowRoot?.append(newRouteComponent);
+		// Add the page component to the router display.
+		const oldRouteComponent = this._getCurrentRouteComponent();
+		const newRouteComponent = document.createElement(route.name);
 
-                // Start the animation.
-                setTimeout(() => {
-                    newRouteComponent.classList.add('animate'); // NOTE: the 10ms delay is needed on old browsers to prevent rendering the animation in the same cycle as the component is added to DOM.
-                }, 10);
-            } else if (animation === 'fade-out' || animation === 'slide-out' || animation === 'pop-out') {
-                if (oldRouteComponent) {
-                    // Set the animation type the old route component should use to animate out.
-                    oldRouteComponent.classList.add(animation);
+		newRouteComponent.classList.add('page');
 
-                    // Clean up the animation once done.
-                    oldRouteComponent.addEventListener('animationend', () => {
-                        // Clear the animation from the element.
-                        oldRouteComponent.classList.remove(animation, 'animate');
+		// Start a task to animate in the new route component and animate out the old route component.
+		await new Promise<void>((resolve) => {
 
-                        // Remove the old route component from view.
-                        oldRouteComponent.remove();
+			if (animation === 'fade-in' || animation === 'slide-in' || animation === 'pop-in') {
 
-                        // Mark the routing task as complete.
-                        resolve();
-                    });
+				// Set the animation type the new route component should use to animate in.
+				newRouteComponent.classList.add(animation);
 
-                    // Add the new route component to the bottom of the view stack so the the animation is visible.
-                    this.shadowRoot?.prepend(newRouteComponent);
+				// Clean up the animation once done.
+				newRouteComponent.addEventListener('animationend', () => {
+					// Clear the animation from the element.
+					newRouteComponent.classList.remove(animation, 'animate');
 
-                    // Start the animation.
-                    setTimeout(() => {
-                        oldRouteComponent.classList.add('animate'); // NOTE: the 10ms delay is needed on old browsers to prevent rendering the animation in the same cycle as the component is added to DOM.
-                    }, 10);
-                } else {
-                    // There is no old route component to animate out, just add the new route component instead.
-                    this.shadowRoot?.prepend(newRouteComponent);
+					// Remove the old route component from view.
+					if (oldRouteComponent) {
+						oldRouteComponent.remove();
+					}
 
-                    // Mark the routing task as complete.
-                    resolve();
-                }
-            } else {
-                // No animation is set, just remove the old route component and add the new route component.
-                if (oldRouteComponent) {
-                    oldRouteComponent.remove();
-                }
+					// Mark the routing task as complete.
+					resolve();
+				});
 
-                this.shadowRoot?.append(newRouteComponent);
+				// Add the new route component to the top of the view stack so the the animation is visible.
+				this.shadowRoot?.append(newRouteComponent);
 
-                // Mark the routing task as complete.
-                resolve();
-            }
-        });
+				// Start the animation.
+				setTimeout(() => {
+					newRouteComponent.classList.add('animate'); // NOTE: the 10ms delay is needed on old browsers to prevent rendering the animation in the same cycle as the component is added to DOM.
+				}, 10);
 
-        // Notify any subscribers that the route has finished loading.
-        this.dispatchEvent(
-            new CustomEvent('navigation-completed', {
-                detail: this._currentLocation,
-                bubbles: true,
-                composed: true
-            })
-        );
+			} else if (animation === 'fade-out' || animation === 'slide-out' || animation === 'pop-out') {
 
-        // Process the next task in the animation queue, if there is any.
-        await this._processNextQueueItem();
-    }
+				if (oldRouteComponent) {
 
-    // ---------------
-    // PRIVATE METHODS
-    // ---------------
+					// Set the animation type the old route component should use to animate out.
+					oldRouteComponent.classList.add(animation);
 
-    /**
-     * Get the DOM element of the currently routed to page.
-     *
-     * @returns The routed page route element.
-     */
-    _getCurrentRouteComponent(): Element | null {
-        if (!this.shadowRoot) {
-            return null;
-        }
+					// Clean up the animation once done.
+					oldRouteComponent.addEventListener('animationend', () => {
+						// Clear the animation from the element.
+						oldRouteComponent.classList.remove(animation, 'animate');
 
-        for (let i = 0; i < this.shadowRoot.children.length; i++) {
-            const child = this.shadowRoot.children[i];
+						// Remove the old route component from view.
+						oldRouteComponent.remove();
 
-            if (child.tagName.toLowerCase() !== 'style') {
-                return child;
-            }
-        }
+						// Mark the routing task as complete.
+						resolve();
+					});
 
-        return null;
-    }
+					// Add the new route component to the bottom of the view stack so the the animation is visible.
+					this.shadowRoot?.prepend(newRouteComponent);
+
+					// Start the animation.
+					setTimeout(() => {
+						oldRouteComponent.classList.add('animate'); // NOTE: the 10ms delay is needed on old browsers to prevent rendering the animation in the same cycle as the component is added to DOM.
+					}, 10);
+
+				} else {
+
+					// There is no old route component to animate out, just add the new route component instead.
+					this.shadowRoot?.prepend(newRouteComponent);
+
+					// Mark the routing task as complete.
+					resolve();
+				}
+
+			} else {
+
+				// No animation is set, just remove the old route component and add the new route component.
+				if (oldRouteComponent) {
+					oldRouteComponent.remove();
+				}
+
+				this.shadowRoot?.append(newRouteComponent);
+
+				// Mark the routing task as complete.
+				resolve();
+			}
+		});
+
+		// Notify any subscribers that the route has finished loading.
+		this.dispatchEvent(
+			new CustomEvent('navigation-completed', {
+				detail: this._currentLocation,
+				bubbles: true,
+				composed: true
+			})
+		);
+
+		// Process the next task in the animation queue, if there is any.
+		await this._processNextQueueItem();
+	}
+
+	// ---------------
+	// PRIVATE METHODS
+	// ---------------
+
+	/**
+	 * Get the DOM element of the currently routed to page.
+	 *
+	 * @returns The routed page route element.
+	 */
+	_getCurrentRouteComponent(): Element | null {
+
+		if (!this.shadowRoot) {
+			return null;
+		}
+
+		for (let i = 0; i < this.shadowRoot.children.length; i++) {
+
+			const child = this.shadowRoot.children[i];
+
+			if (child.tagName.toLowerCase() !== 'style') {
+				return child;
+			}
+		}
+
+		return null;
+	}
 }
 
 customElements.define('omni-router-outlet', RouterOutlet);
