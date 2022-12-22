@@ -1,7 +1,7 @@
 {
 	"name": "@capitec/omni-router",
-	"version": "1.0.0",
-	"description": "Framework agnostic, zero dependency, client-side web component router",
+	"version": "0.0.2",
+	"description": "Simple path-based web component router",
 	"author": "Capitec",
 	"license": "MIT",
 	"homepage": "https://github.com/capitec/omni-router",
@@ -33,9 +33,10 @@
 		"build": "tsc",
 		"test": "echo \"Error: no test specified\" && exit 0",
 		"lint": "eslint src/**/*.{js,ts}",
-		"docs": "npm run docs:api && npm run docs:contributors",
+		"docs": "npm run docs:api && npm run docs:copy && npm run docs:contributors",
 		"docs:api": "npx typedoc --out docs/api src/index.ts",
 		"docs:contributors": "npx all-contributors generate",
+		"docs:copy": "copyfiles -a \"./docs/logos/*\" \"./.oss-docs.json\" \"./docs/api\"",
 		"contributors:add": "npx all-contributors add",
 		"prepublish": "npm run build"
 	},
@@ -47,8 +48,11 @@
 		"@typescript-eslint/eslint-plugin": "^5.23.0",
 		"@typescript-eslint/parser": "^5.23.0",
 		"all-contributors-cli": "^6.20.0",
+		"copyfiles": "^2.4.1",
+		"command-line-args": "^5.2.1",
 		"eslint": "^8.15.0",
 		"eslint-plugin-tsdoc": "^0.2.16",
+		"package-json": "^8.1.0",
 		"typedoc": "^0.22.15",
 		"typescript": "^4.6.4"
 	}

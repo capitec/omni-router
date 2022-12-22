@@ -3,7 +3,7 @@
 	"parser": "@typescript-eslint/parser",
 	"plugins": [
 		"@typescript-eslint",
-		"eslint-plugin-tsdoc"
+		"eslint-plugin-tsdoc",
 	],
 	"extends": [
 		"eslint:recommended",
