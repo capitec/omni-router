@@ -98,7 +98,7 @@ jobs:
                   token: ${{ secrets.ACCESS_TOKEN }}
                   repository-name: capitec/open-source
                   branch: main
-                  folder: docs # The folder to grab the built docs files from
+                  folder: docs/api # The folder to grab the built docs files from
                   target-folder: ${{ env.DOCS_BASE_PATH }}/versions/beta # The folder to commit the build docs files into
                   clean: true # Clean out any previous files in the target folder
                   clean-exclude: |
@@ -114,7 +114,7 @@ jobs:
                   token: ${{ secrets.ACCESS_TOKEN }}
                   repository-name: capitec/open-source
                   branch: main
-                  folder: docs # The folder to grab the built docs files from
+                  folder: docs/api # The folder to grab the built docs files from
                   target-folder: ${{ env.DOCS_BASE_PATH }}/versions/${{ github.event.release.tag_name }} # The folder to commit the build docs files into
                   clean: true
                   clean-exclude: |
@@ -130,7 +130,7 @@ jobs:
                   token: ${{ secrets.ACCESS_TOKEN }}
                   repository-name: capitec/open-source
                   branch: main
-                  folder: docs # The folder to grab the built docs files from
+                  folder: docs/api # The folder to grab the built docs files from
                   target-folder: ${{ env.DOCS_BASE_PATH }} # The folder to commit the build docs files into
                   clean:
                       true
