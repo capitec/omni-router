@@ -1,6 +1,6 @@
 {
 	"name": "@capitec/omni-router",
-	"version": "1.0.0",
+	"version": "0.0.1",
 	"description": "Simple path-based web component router",
 	"author": "Capitec",
 	"license": "MIT",
@@ -49,6 +49,7 @@
 		"@typescript-eslint/parser": "^5.23.0",
 		"all-contributors-cli": "^6.20.0",
 		"copyfiles": "^2.4.1",
+		"command-line-args": "^5.2.1",
 		"eslint": "^8.15.0",
 		"eslint-plugin-tsdoc": "^0.2.16",
 		"package-json": "^8.1.0",
