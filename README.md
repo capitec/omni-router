@@ -13,11 +13,10 @@
 	<a href="https://github.com/capitec/omni-router/blob/develop/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/capitec/omni-router" height="20"/></a>
 </p>
 <p align="center">
-	<a href="https://capitec.github.io/open-source/?repo=omni-router"><img alt="Docs" src="https://img.shields.io/static/v1?label=docs&message=capitec.github.io/open-source&color=blue&style=flat-square" /></a>
+	<a href="https://capitec.github.io/open-source/?repo=Omni-Router"><img alt="Docs" src="https://img.shields.io/static/v1?label=docs&message=capitec.github.io/open-source&color=blue&style=flat-square" /></a>
 </p>
 <!--
 <p align="center">
-	<a href="https://capitec.github.io/open-source/?repo=omni-router"><img alt="Docs" src="https://img.shields.io/static/v1?label=docs&message=opensource.capitecbank.co.za&color=blue&style=flat-square" /></a>
 	<a href="https://twitter.com/capitecbank"><img src="https://img.shields.io/twitter/follow/capitecbank" /></a>
 </p>
 -->
@@ -177,7 +176,7 @@ Starter projects are available in the [examples directory](./examples) for the f
 					<a href="./examples/vanilla">
 						<img src="./docs/logos/javascript.png" width="128" height="128" alt="Vanilla JS" />
 						<br />
-						<sub><b>Vanilla JS</b></sub>
+						<p><b>Vanilla JS</b><br><sub></sub</p>
 					</a>
 				</td>
 				<td align="center">
@@ -239,7 +238,7 @@ The router supports URL paths for the following patterns:
 | **/:param** | /hello/:place | /hello/world | A required path parameter. |
 | **/:param?** | /hello/:place? | /hello<br>/hello/world | An optional path parameter |
 
-> Note: Path part parameters must be valid URL characters including: Period(.), Dash(-), Characters(a-Z), Numbers(0-9).
+> Note: Path part parameters must be valid URL characters including: Period (.), Dash (-), Characters (a-Z), Numbers (0-9).
 
 ### Styling
 
@@ -268,7 +267,7 @@ The ```<omni-router>``` tag dispatches the following events, that may be useful 
 
 ### Router Class
 
-Full API documentation available in [/docs](https://capitec.github.io/omni-router/modules.html).
+Full API documentation [available here](https://capitec.github.io/open-source/?repo=Omni-Router).
 
 The ```Router``` class provides the following properties and functions:
 
@@ -307,6 +306,7 @@ See the [`CONTRIBUTING.md`](./CONTRIBUTING.md) guide to get involved.
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jn42lm1"><img src="https://avatars2.githubusercontent.com/u/54233338?v=4?s=100" width="100px;" alt="jn42lm1"/><br /><sub><b>jn42lm1</b></sub></a><br /><a href="https://github.com/capitec/omni-router/commits?author=jn42lm1" title="Code">💻</a> <a href="https://github.com/capitec/omni-router/commits?author=jn42lm1" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/BOTLANNER"><img src="https://avatars.githubusercontent.com/u/16349308?v=4?s=100" width="100px;" alt="BOTLANNER"/><br /><sub><b>BOTLANNER</b></sub></a><br /><a href="https://github.com/capitec/omni-router/commits?author=BOTLANNER" title="Code">💻</a> <a href="#tool-BOTLANNER" title="Tools">🔧</a></td>
     </tr>
   </tbody>
 </table>

@@ -27,19 +27,19 @@ type RouteTask = {
 export class RouterOutlet extends HTMLElement {
 
 	/** The instance to the router singleton. */
-	_router: Router;
+	private _router: Router;
 
 	/** The routed location that is currently loaded in the outlet. */
-	_currentLocation?: RoutedLocation;
+	private _currentLocation?: RoutedLocation;
 
 	/** The routed location that was previously loaded in the outlet. */
-	_previousLocation?: RoutedLocation;
+	private _previousLocation?: RoutedLocation;
 
 	/** Indicator if there is a routing animation currently playing. */
-	_isAnimating: boolean;
+	private _isAnimating: boolean;
 
 	/** List of queued navigation animation tasks. */
-	_animationQueue: RouteTask[] = [];
+	private _animationQueue: RouteTask[] = [];
 
 	// --------------
 	// INITIALIZATION
@@ -223,7 +223,7 @@ export class RouterOutlet extends HTMLElement {
 	connectedCallback(): void {
 
 		// Set this outlet as the route rendering handler for the router.
-		this._router.onNavigate = (route, animation): Promise<void> => this.loadRoute(route, animation);
+		this._router.onNavigate = (route, animation): Promise<void> => this._loadRoute(route, animation);
 	}
 
 	/**
@@ -245,6 +245,12 @@ export class RouterOutlet extends HTMLElement {
 	// PUBLIC METHODS
 	// --------------
 
+	// n/a
+
+	// ---------------
+	// PRIVATE METHODS
+	// ---------------
+
 	/**
 	 * Load a route into view.
 	 *
@@ -255,7 +261,7 @@ export class RouterOutlet extends HTMLElement {
 	 * @param routedLocation - The the routed location to load.
 	 * @param animation - The animation to play to bring the new route into view.
 	 */
-	private async loadRoute(routedLocation: RoutedLocation, animation?: RouteAnimationIn | RouteAnimationOut): Promise<void> {
+	private async _loadRoute(routedLocation: RoutedLocation, animation?: RouteAnimationIn | RouteAnimationOut): Promise<void> {
 
 		// Ensure a valid route is provided.
 		const route = routedLocation.route;
@@ -284,7 +290,7 @@ export class RouterOutlet extends HTMLElement {
 	/**
 	 * Process the queue of route load tasks.
 	 */
-	async _processNextQueueItem(): Promise<void> {
+	private async _processNextQueueItem(): Promise<void> {
 
 		// Remove the task next available from the queue.
 		const routeRequest = this._animationQueue.shift();
@@ -433,16 +439,12 @@ export class RouterOutlet extends HTMLElement {
 		await this._processNextQueueItem();
 	}
 
-	// ---------------
-	// PRIVATE METHODS
-	// ---------------
-
 	/**
 	 * Get the DOM element of the currently routed to page.
 	 *
 	 * @returns The routed page route element.
 	 */
-	_getCurrentRouteComponent(): Element | null {
+	private _getCurrentRouteComponent(): Element | null {
 
 		if (!this.shadowRoot) {
 			return null;
