@@ -61,71 +61,71 @@ Simply import the ```Router``` and add your page routes. Place the ```<omni-rout
 <!DOCTYPE html>
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 
-    <title>Omni Router Demo</title>
+        <title>Omni Router Demo</title>
 
-    <base href="/">
+        <base href="/">
 
-    <script type="module">
-      import { Router } from '@capitec/omni-router';
+        <script type="module">
+            import { Router } from '@capitec/omni-router';
 
-      // Iniitialize the router.
-      const router = Router.getInstance();
+            // Iniitialize the router.
+            const router = Router.getInstance();
 
-      // Register the app routes.
-      router.addRoute({
-        name: 'view-fade',
-        title: 'Fade',
-        path: '/fade',
-        animation: 'fade',
-        load: () => import('./views/ViewFade'),
-        isDefault: true
-      });
+            // Register the app routes.
+            router.addRoute({
+                name: 'view-fade',
+                title: 'Fade',
+                path: '/fade',
+                animation: 'fade',
+                load: () => import('./views/ViewFade'),
+                isDefault: true
+            });
 
-      router.addRoute({
-        name: 'view-slide',
-        title: 'Slide',
-        path: '/slide',
-        animation: 'slide',
-        load: () => import('./views/ViewSlide')
-      });
+            router.addRoute({
+                name: 'view-slide',
+                title: 'Slide',
+                path: '/slide',
+                animation: 'slide',
+                load: () => import('./views/ViewSlide')
+            });
 
-      router.addRoute({
-        name: 'view-pop',
-        title: 'Pop',
-        path: '/pop',
-        animation: 'pop',
-        load: () => import('./views/ViewPop')
-      });
+            router.addRoute({
+                name: 'view-pop',
+                title: 'Pop',
+                path: '/pop',
+                animation: 'pop',
+                load: () => import('./views/ViewPop')
+            });
 
-      router.addRoute({
-        name: 'view-guarded',
-        title: 'Guarded Route',
-        path: '/guarded',
-        load: () => import('./views/ViewGuarded'),
-        guard: () => !this._isUserLoggedIn()
-      });
+            router.addRoute({
+                name: 'view-guarded',
+                title: 'Guarded Route',
+                path: '/guarded',
+                load: () => import('./views/ViewGuarded'),
+                guard: () => !this._isUserLoggedIn()
+            });
 
-      router.addRoute({
-        name: 'view-fallback',
-        title: 'Fallback Route',
-        path: '/error404',
-        load: () => import('./views/ViewFallback'),
-        isFallback: true
-      });
+            router.addRoute({
+                name: 'view-fallback',
+                title: 'Fallback Route',
+                path: '/error404',
+                load: () => import('./views/ViewFallback'),
+                isFallback: true
+            });
 
-      // Load the route matching the current browser path.
-      router.load();
-    </script>
+            // Load the route matching the current browser path.
+            router.load();
+        </script>
 
-    <script type="module" src="./AppShell.js"></script>
-  </head>
+        <script type="module" src="./AppShell.js"></script>
+    </head>
 
-  <body>
-    <omni-router></omni-router>
-  </body>
+    <body>
+        <omni-router></omni-router>
+    </body>
 </html>
 ```
 
@@ -138,29 +138,29 @@ import { Router } from '@capitec/omni-router';
 
 class ViewFade extends HTMLElement {
 
-  constructor() {
+    constructor() {
 
-    super();
+        super();
 
-    // Connect application services.
-    this._router = Router.getInstance();
+        // Connect application services.
+        this._router = Router.getInstance();
 
-    // Create the DOM content template.
-    const template = document.createElement('template');
-    template.innerHTML = `
-      <h1>Hello World</h1>
-      <button id="back">⬅ Go Back</button>
-    `;
+        // Create the DOM content template.
+        const template = document.createElement('template');
+        template.innerHTML = `
+            <h1>Hello World</h1>
+            <button id="back">⬅ Go Back</button>
+        `;
 
-    // Create a shadow root for the content.
-    this.attachShadow({ mode: 'open' });
+        // Create a shadow root for the content.
+        this.attachShadow({ mode: 'open' });
 
-    // Add the template content to the shadow root.
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
+        // Add the template content to the shadow root.
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-    // Register element event listeners.
-    this.shadowRoot.querySelector('#back').addEventListener('click', () => this._router.pop());
-  }
+        // Register element event listeners.
+        this.shadowRoot.querySelector('#back').addEventListener('click', () => this._router.pop());
+    }
 }
 
 customElements.define('view-fade', ViewFade);
@@ -275,7 +275,7 @@ The ```Router``` class provides the following properties and functions:
 | Property | Description |
 | -------- | ----------- |
 | ```get currentLocation(): RoutedLocation \| undefined``` | Get the currently location routed to. |
-| ```get previousLocation(): RoutedLocation \| undefined``` |  Get the previous location routed to. |
+| ```get previousLocation(): RoutedLocation \| undefined``` | Get the previous location routed to. |
 | ```get defaultRoute(): Route \| undefined ``` | Get the route that should be rendered when navigating to the app base URL. |
 | ```get fallbackRoute(): Route \| undefined``` | Get the route that should be rendered when navigating to a route that does not exist. |
 
