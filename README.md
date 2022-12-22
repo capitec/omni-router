@@ -59,72 +59,73 @@ Simply import the ```Router``` and add your page routes. Place the ```<omni-rout
 
 ```html
 <!DOCTYPE html>
+
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
 
-		<title>Omni Router Demo</title>
-		
-		<base href="/">
+    <title>Omni Router Demo</title>
 
-		<script type="module">
-			import { Router } from '@capitec/omni-router';
+    <base href="/">
 
-			// Iniitialize the router.
-			const router = Router.getInstance();
+    <script type="module">
+      import { Router } from '@capitec/omni-router';
 
-			// Register the app routes.
-			router.addRoute({
-				name: 'view-fade',
-				title: 'Fade',
-				path: '/fade',
-				animation: 'fade',
-				load: () => import('./views/ViewFade'),
-				isDefault: true
-			});
+      // Iniitialize the router.
+      const router = Router.getInstance();
 
-			router.addRoute({
-				name: 'view-slide',
-				title: 'Slide',
-				path: '/slide',
-				animation: 'slide',
-				load: () => import('./views/ViewSlide')
-			});
+      // Register the app routes.
+      router.addRoute({
+        name: 'view-fade',
+        title: 'Fade',
+        path: '/fade',
+        animation: 'fade',
+        load: () => import('./views/ViewFade'),
+        isDefault: true
+      });
 
-			router.addRoute({
-				name: 'view-pop',
-				title: 'Pop',
-				path: '/pop',
-				animation: 'pop',
-				load: () => import('./views/ViewPop')
-			});
+      router.addRoute({
+        name: 'view-slide',
+        title: 'Slide',
+        path: '/slide',
+        animation: 'slide',
+        load: () => import('./views/ViewSlide')
+      });
 
-			router.addRoute({
-				name: 'view-guarded',
-				title: 'Guarded Route',
-				path: '/guarded',
-				load: () => import('./views/ViewGuarded'),
-				guard: () => !this._isUserLoggedIn()
-			});
+      router.addRoute({
+        name: 'view-pop',
+        title: 'Pop',
+        path: '/pop',
+        animation: 'pop',
+        load: () => import('./views/ViewPop')
+      });
 
-			router.addRoute({
-				name: 'view-fallback',
-				title: 'Fallback Route',
-				path: '/error404',
-				load: () => import('./views/ViewFallback'),
-				isFallback: true
-			});
+      router.addRoute({
+        name: 'view-guarded',
+        title: 'Guarded Route',
+        path: '/guarded',
+        load: () => import('./views/ViewGuarded'),
+        guard: () => !this._isUserLoggedIn()
+      });
 
-			// Load the route matching the current browser path.
-			router.load();
-		</script>
+      router.addRoute({
+        name: 'view-fallback',
+        title: 'Fallback Route',
+        path: '/error404',
+        load: () => import('./views/ViewFallback'),
+        isFallback: true
+      });
 
-		<script type="module" src="./AppShell.js"></script>
-	</head>
+      // Load the route matching the current browser path.
+      router.load();
+    </script>
 
-	<body>
-		<omni-router></omni-router>
-	</body>
+    <script type="module" src="./AppShell.js"></script>
+  </head>
+
+  <body>
+    <omni-router></omni-router>
+  </body>
 </html>
 ```
 
@@ -137,29 +138,29 @@ import { Router } from '@capitec/omni-router';
 
 class ViewFade extends HTMLElement {
 
-	constructor() {
+  constructor() {
 
-		super();
+    super();
 
-		// Connect application services.
-		this._router = Router.getInstance();
+    // Connect application services.
+    this._router = Router.getInstance();
 
-		// Create the DOM content template.
-		const template = document.createElement('template');
-		template.innerHTML = `
-			<h1>Hello World</h1>
-			<button id="back">⬅ Go Back</button>
-		`;
+    // Create the DOM content template.
+    const template = document.createElement('template');
+    template.innerHTML = `
+      <h1>Hello World</h1>
+      <button id="back">⬅ Go Back</button>
+    `;
 
-		// Create a shadow root for the content.
-		this.attachShadow({ mode: 'open' });
+    // Create a shadow root for the content.
+    this.attachShadow({ mode: 'open' });
 
-		// Add the template content to the shadow root.
-		this.shadowRoot.appendChild(template.content.cloneNode(true));
+    // Add the template content to the shadow root.
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-		// Register element event listeners.
-		this.shadowRoot.querySelector('#back').addEventListener('click', () => this._router.pop());
-	}
+    // Register element event listeners.
+    this.shadowRoot.querySelector('#back').addEventListener('click', () => this._router.pop());
+  }
 }
 
 customElements.define('view-fade', ViewFade);
