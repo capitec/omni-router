@@ -17,16 +17,6 @@ export type RouteAnimationOut = 'fade-out' | 'slide-out' | 'pop-out';
 // ------------
 
 /**
- * The loader function to call to load the page module before routing.
- */
-export type RouteLoadFunction = () => Promise<void>;
-
-/**
- * The check fuction to call to determine if a route may be routed to.
- */
-export type RouteGuardFunction = () => boolean;
-
-/**
  * The animation to load a page in with when routing.
  */
 export type RouteAnimation = 'fade' | 'slide' | 'pop';
@@ -54,10 +44,10 @@ export type Route = {
 	animation?: RouteAnimation;
 
 	/** Function to execute that lazy loads the web component. */
-	load?: RouteLoadFunction;
+	load?: () => Promise<unknown>;
 
 	/** unction to execute to determine if the view is allowed to be loaded. */
-	guard?: RouteGuardFunction;
+	guard?: () => boolean;
 
 	/** Set to load this route if the base URL of the web app is loaded. */
 	isDefault?: boolean;

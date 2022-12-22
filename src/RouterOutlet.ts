@@ -222,7 +222,7 @@ export class RouterOutlet extends HTMLElement {
 	 */
 	connectedCallback(): void {
 
-		// Load the new route when the router navigation changes.
+		// Set this outlet as the route rendering handler for the router.
 		this._router.onNavigate = (route, animation): Promise<void> => this.loadRoute(route, animation);
 	}
 
@@ -461,4 +461,4 @@ export class RouterOutlet extends HTMLElement {
 	}
 }
 
-customElements.define('omni-router-outlet', RouterOutlet);
+customElements.define('omni-router', RouterOutlet);

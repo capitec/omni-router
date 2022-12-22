@@ -212,7 +212,7 @@ export class Router {
 	}
 
 	/**
-	 * Register a new navigable routes.
+	 * Add a route from the list of navigable routes.
 	 *
 	 * @param route - The route configuration details.
 	 */
@@ -252,6 +252,16 @@ export class Router {
 		if (route.isFallback) {
 			this.setFallback(route.name);
 		}
+	}
+
+	/**
+	 * Remove a route from the list of navigable routes.
+	 *
+	 * @param name - The name of the route to set as fallback.
+	 */
+	removeRoute(name: string): void {
+
+		this._routes = this._routes.filter(route => route.name !== name);
 	}
 
 	/**
@@ -304,9 +314,7 @@ export class Router {
 			return this.fallbackRoute;
 		}
 
-		// Report an error as we could not complete routing due to an invalid setup and bad request.
-		console.error(`[Router] No route registered for path '${path}', unable to navigate.`);
-
+		// Could not find a route matching the path.
 		return null;
 	}
 
@@ -367,6 +375,17 @@ export class Router {
 		const route = this.getRouteForPath(window.location.href);
 
 		if (!route) {
+
+			console.error(`[Router] No route registered for path '${window.location.href}', unable to navigate.`);
+
+			return;
+		}
+
+		// Ensure that a router outlet attached itself to the router.
+		if (!this.onNavigate) {
+
+			console.warn(`[Router] No route rendering outlet attached yet, did you add a <omni-router> tag to your web page?`);
+
 			return;
 		}
 
@@ -394,6 +413,9 @@ export class Router {
 		const route = this.getRouteForPath(path);
 
 		if (!route) {
+
+			console.error(`[Router] No route registered for path '${path}', unable to navigate.`);
+
 			return;
 		}
 
@@ -424,6 +446,9 @@ export class Router {
 		const route = this.getRouteForPath(path);
 
 		if (!route) {
+
+			console.error(`[Router] No route registered for path '${path}', unable to navigate.`);
+
 			return;
 		}
 
@@ -477,6 +502,9 @@ export class Router {
 		const route = this.getRouteForPath(window.location.href);
 
 		if (!route) {
+
+			console.error(`[Router] No route registered for path '${window.location.href}', unable to navigate.`);
+
 			return;
 		}
 

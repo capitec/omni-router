@@ -242,7 +242,7 @@ class AppShell extends HTMLElement {
 				<a id="logout" class="push-right hidden">Lock Guard</a>
 			</nav>
 			
-			<omni-router-outlet></omni-router-outlet>
+			<omni-router></omni-router>
 		`;
 
 		// Create a shadow root for the content.
