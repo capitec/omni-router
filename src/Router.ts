@@ -419,6 +419,14 @@ export class Router {
 			return;
 		}
 
+		// Ensure that a router outlet attached itself to the router.
+		if (!this.onNavigate) {
+
+			console.warn(`[Router] No route rendering outlet attached yet, did you add a <omni-router> tag to your web page?`);
+
+			return;
+		}
+
 		// Prevent navigating to a guarded route.
 		if (route.guard && !route.guard()) {
 
@@ -448,6 +456,14 @@ export class Router {
 		if (!route) {
 
 			console.error(`[Router] No route registered for path '${path}', unable to navigate.`);
+
+			return;
+		}
+
+		// Ensure that a router outlet attached itself to the router.
+		if (!this.onNavigate) {
+
+			console.warn(`[Router] No route rendering outlet attached yet, did you add a <omni-router> tag to your web page?`);
 
 			return;
 		}
@@ -504,6 +520,22 @@ export class Router {
 		if (!route) {
 
 			console.error(`[Router] No route registered for path '${window.location.href}', unable to navigate.`);
+
+			return;
+		}
+
+		// Ensure that a router outlet attached itself to the router.
+		if (!this.onNavigate) {
+
+			console.warn(`[Router] No route rendering outlet attached yet, did you add a <omni-router> tag to your web page?`);
+
+			return;
+		}
+
+		// Prevent navigating to a guarded route.
+		if (route.guard && !route.guard()) {
+
+			console.warn(`[Router] Route "${route.name}" stopped by its guard function, unable to navigate.`);
 
 			return;
 		}
