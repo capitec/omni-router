@@ -1,0 +1,30 @@
+{
+	"name": "omni-router-demo-vanilla",
+	"version": "1.0.0",
+	"description": "Vanilla JS example using the Omni Router",
+	"author": "Capitec",
+	"license": "MIT",
+	"homepage": "https://github.com/capitec/omni-router",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/capitec/omni-router.git"
+	},
+	"bugs": {
+		"url": "https://github.com/capitec/omni-router/issues"
+	},
+	"type": "module",
+	"scripts": {
+		"build": "node scripts/build.js",
+		"start": "wds --node-resolve --open --watch --root-dir src --app-index src/index.html"
+	},
+	"dependencies": {
+		"@capitec/omni-router": "file:../.."
+	},
+	"devDependencies": {
+		"@web/dev-server": "^0.1.35",
+		"command-line-args": "^5.2.1",
+		"esbuild": "0.16.9",
+		"fs-extra": "^10.1.0",
+		"globby": "^13.1.2"
+	}
+}
