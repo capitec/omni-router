@@ -184,7 +184,7 @@ Starter projects are available in the [examples directory](./examples) for the f
 					<a href="./examples/lit">
 						<img src="./docs/logos/lit.png" width="128" height="128" alt="Lit" />
 						<br />
-						<p><b>Lit</b><br><sub>(coming soon)</sub</p>
+						<p><b>Lit</b><br><sub></sub</p>
 					</a>
 				</td>
 				<td align="center">
@@ -283,7 +283,8 @@ The ```Router``` class provides the following properties and functions:
 | -------- | ----------- |
 | ```addEventListener(eventName: RouterEventType, callback: () => void): void``` | Registers a callback function to be invoked when the router dispatches an event. |
 | ```removeEventListener(eventName: RouterEventType, callback: () => void): void``` | Removes a callback function from the list of functions to be invoked when the router dispatches an event. |
-| ```addRoute(route: Route): void``` | Register a new navigable routes. |
+| ```addRoute(route: Route): void``` | Add a route from the list of navigable routes. |
+| ```remove(name: string): void``` | Remove a route from the list of navigable routes. |
 | ```getRouteForPath(pathOrUrl: string): Route \| null``` | Get the registered route for the given path. |
 | ```setDefault(name: string): boolean``` | Set the route that should be rendered when navigating to the app base URL. |
 | ```setFallback(name: string): boolean``` | Set the route that should be rendered when navigating to a route that does not exist. |
