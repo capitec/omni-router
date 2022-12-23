@@ -28,7 +28,7 @@ export class ViewPop extends LitElement {
 			box-sizing: border-box;
 			padding: 20px;
 
-			--omni-router-page-background: #eeffee;
+			background-color: #eeffee;
 		}
 
 		@media only screen and (max-height: 720px) {

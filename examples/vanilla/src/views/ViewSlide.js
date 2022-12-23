@@ -30,7 +30,7 @@ class ViewSlide extends HTMLElement {
 					box-sizing: border-box;
 					padding: 20px;
 
-					--omni-router-page-background: #eeeeff;
+					background-color: #eeeeff;
 				}
 
 				@media only screen and (max-height: 720px) {
