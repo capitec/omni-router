@@ -13,11 +13,10 @@
 	<a href="https://github.com/capitec/omni-router/blob/develop/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/capitec/omni-router" height="20"/></a>
 </p>
 <p align="center">
-	<a href="https://capitec.github.io/open-source/?repo=omni-router"><img alt="Docs" src="https://img.shields.io/static/v1?label=docs&message=capitec.github.io/open-source&color=blue&style=flat-square" /></a>
+	<a href="https://capitec.github.io/open-source/?repo=Omni-Router"><img alt="Docs" src="https://img.shields.io/static/v1?label=docs&message=capitec.github.io/open-source&color=blue&style=flat-square" /></a>
 </p>
 <!--
 <p align="center">
-	<a href="https://capitec.github.io/open-source/?repo=omni-router"><img alt="Docs" src="https://img.shields.io/static/v1?label=docs&message=opensource.capitecbank.co.za&color=blue&style=flat-square" /></a>
 	<a href="https://twitter.com/capitecbank"><img src="https://img.shields.io/twitter/follow/capitecbank" /></a>
 </p>
 -->
@@ -60,72 +59,73 @@ Simply import the ```Router``` and add your page routes. Place the ```<omni-rout
 
 ```html
 <!DOCTYPE html>
+
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
+    <head>
+        <meta charset="utf-8">
 
-		<title>Omni Router Demo</title>
-		
-		<base href="/">
+        <title>Omni Router Demo</title>
 
-		<script type="module">
-			import { Router } from '@capitec/omni-router';
+        <base href="/">
 
-			// Iniitialize the router.
-			const router = Router.getInstance();
+        <script type="module">
+            import { Router } from '@capitec/omni-router';
 
-			// Register the app routes.
-			router.addRoute({
-				name: 'view-fade',
-				title: 'Fade',
-				path: '/fade',
-				animation: 'fade',
-				load: () => import('./views/ViewFade'),
-				isDefault: true
-			});
+            // Iniitialize the router.
+            const router = Router.getInstance();
 
-			router.addRoute({
-				name: 'view-slide',
-				title: 'Slide',
-				path: '/slide',
-				animation: 'slide',
-				load: () => import('./views/ViewSlide')
-			});
+            // Register the app routes.
+            router.addRoute({
+                name: 'view-fade',
+                title: 'Fade',
+                path: '/fade',
+                animation: 'fade',
+                load: () => import('./views/ViewFade'),
+                isDefault: true
+            });
 
-			router.addRoute({
-				name: 'view-pop',
-				title: 'Pop',
-				path: '/pop',
-				animation: 'pop',
-				load: () => import('./views/ViewPop')
-			});
+            router.addRoute({
+                name: 'view-slide',
+                title: 'Slide',
+                path: '/slide',
+                animation: 'slide',
+                load: () => import('./views/ViewSlide')
+            });
 
-			router.addRoute({
-				name: 'view-guarded',
-				title: 'Guarded Route',
-				path: '/guarded',
-				load: () => import('./views/ViewGuarded'),
-				guard: () => !this._isUserLoggedIn()
-			});
+            router.addRoute({
+                name: 'view-pop',
+                title: 'Pop',
+                path: '/pop',
+                animation: 'pop',
+                load: () => import('./views/ViewPop')
+            });
 
-			router.addRoute({
-				name: 'view-fallback',
-				title: 'Fallback Route',
-				path: '/error404',
-				load: () => import('./views/ViewFallback'),
-				isFallback: true
-			});
+            router.addRoute({
+                name: 'view-guarded',
+                title: 'Guarded Route',
+                path: '/guarded',
+                load: () => import('./views/ViewGuarded'),
+                guard: () => !this._isUserLoggedIn()
+            });
 
-			// Load the route matching the current browser path.
-			router.load();
-		</script>
+            router.addRoute({
+                name: 'view-fallback',
+                title: 'Fallback Route',
+                path: '/error404',
+                load: () => import('./views/ViewFallback'),
+                isFallback: true
+            });
 
-		<script type="module" src="./AppShell.js"></script>
-	</head>
+            // Load the route matching the current browser path.
+            router.load();
+        </script>
 
-	<body>
-		<omni-router></omni-router>
-	</body>
+        <script type="module" src="./AppShell.js"></script>
+    </head>
+
+    <body>
+        <omni-router></omni-router>
+    </body>
 </html>
 ```
 
@@ -138,29 +138,29 @@ import { Router } from '@capitec/omni-router';
 
 class ViewFade extends HTMLElement {
 
-	constructor() {
+    constructor() {
 
-		super();
+        super();
 
-		// Connect application services.
-		this._router = Router.getInstance();
+        // Connect application services.
+        this._router = Router.getInstance();
 
-		// Create the DOM content template.
-		const template = document.createElement('template');
-		template.innerHTML = `
-			<h1>Hello World</h1>
-			<button id="back">⬅ Go Back</button>
-		`;
+        // Create the DOM content template.
+        const template = document.createElement('template');
+        template.innerHTML = `
+            <h1>Hello World</h1>
+            <button id="back">⬅ Go Back</button>
+        `;
 
-		// Create a shadow root for the content.
-		this.attachShadow({ mode: 'open' });
+        // Create a shadow root for the content.
+        this.attachShadow({ mode: 'open' });
 
-		// Add the template content to the shadow root.
-		this.shadowRoot.appendChild(template.content.cloneNode(true));
+        // Add the template content to the shadow root.
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-		// Register element event listeners.
-		this.shadowRoot.querySelector('#back').addEventListener('click', () => this._router.pop());
-	}
+        // Register element event listeners.
+        this.shadowRoot.querySelector('#back').addEventListener('click', () => this._router.pop());
+    }
 }
 
 customElements.define('view-fade', ViewFade);
@@ -177,7 +177,7 @@ Starter projects are available in the [examples directory](./examples) for the f
 					<a href="./examples/vanilla">
 						<img src="./docs/logos/javascript.png" width="128" height="128" alt="Vanilla JS" />
 						<br />
-						<sub><b>Vanilla JS</b></sub>
+						<p><b>Vanilla JS</b><br><sub></sub</p>
 					</a>
 				</td>
 				<td align="center">
@@ -239,7 +239,7 @@ The router supports URL paths for the following patterns:
 | **/:param** | /hello/:place | /hello/world | A required path parameter. |
 | **/:param?** | /hello/:place? | /hello<br>/hello/world | An optional path parameter |
 
-> Note: Path part parameters must be valid URL characters including: Period(.), Dash(-), Characters(a-Z), Numbers(0-9).
+> Note: Path part parameters must be valid URL characters including: Period (.), Dash (-), Characters (a-Z), Numbers (0-9).
 
 ### Styling
 
@@ -248,7 +248,7 @@ The router styling can be customized using the following CSS Custom Properties:
 | CSS Variable | Default Value | Description |
 | ------------ | ------------- | ----------- |
 | ```--omni-router-animation-duration``` | ```300ms``` | The duration it takes for route pages to be animated into view. |
-| ```--omni-router-page-background``` | ```#FFFFFF``` | The background color applied to all pages. May be transparent, however this may make animations look weird. |
+| ```--omni-router-page-background``` | not set | The background color applied to all pages. Useful if you don't want to implement a background-color on all your pages. Pages require a background color to make animated page overlay each other correctly. |
 
 ### Base URL
 
@@ -268,14 +268,14 @@ The ```<omni-router>``` tag dispatches the following events, that may be useful 
 
 ### Router Class
 
-Full API documentation available in [/docs](https://capitec.github.io/omni-router/modules.html).
+Full API documentation [available here](https://capitec.github.io/open-source/?repo=Omni-Router).
 
 The ```Router``` class provides the following properties and functions:
 
 | Property | Description |
 | -------- | ----------- |
 | ```get currentLocation(): RoutedLocation \| undefined``` | Get the currently location routed to. |
-| ```get previousLocation(): RoutedLocation \| undefined``` |  Get the previous location routed to. |
+| ```get previousLocation(): RoutedLocation \| undefined``` | Get the previous location routed to. |
 | ```get defaultRoute(): Route \| undefined ``` | Get the route that should be rendered when navigating to the app base URL. |
 | ```get fallbackRoute(): Route \| undefined``` | Get the route that should be rendered when navigating to a route that does not exist. |
 
@@ -307,6 +307,7 @@ See the [`CONTRIBUTING.md`](./CONTRIBUTING.md) guide to get involved.
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jn42lm1"><img src="https://avatars2.githubusercontent.com/u/54233338?v=4?s=100" width="100px;" alt="jn42lm1"/><br /><sub><b>jn42lm1</b></sub></a><br /><a href="https://github.com/capitec/omni-router/commits?author=jn42lm1" title="Code">💻</a> <a href="https://github.com/capitec/omni-router/commits?author=jn42lm1" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/BOTLANNER"><img src="https://avatars.githubusercontent.com/u/16349308?v=4?s=100" width="100px;" alt="BOTLANNER"/><br /><sub><b>BOTLANNER</b></sub></a><br /><a href="https://github.com/capitec/omni-router/commits?author=BOTLANNER" title="Code">💻</a> <a href="#tool-BOTLANNER" title="Tools">🔧</a></td>
     </tr>
   </tbody>
 </table>
