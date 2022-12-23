@@ -248,7 +248,7 @@ The router styling can be customized using the following CSS Custom Properties:
 | CSS Variable | Default Value | Description |
 | ------------ | ------------- | ----------- |
 | ```--omni-router-animation-duration``` | ```300ms``` | The duration it takes for route pages to be animated into view. |
-| ```--omni-router-page-background``` | ```#FFFFFF``` | The background color applied to all pages. May be transparent, however this may make animations look weird. |
+| ```--omni-router-page-background``` | not set | The background color applied to all pages. Useful if you don't want to implement a background-color on all your pages. Pages require a background color to make animated page overlay each other correctly. |
 
 ### Base URL
 

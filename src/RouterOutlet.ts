@@ -80,7 +80,7 @@ export class RouterOutlet extends HTMLElement {
 				left: 0;
 				right: 0;
 
-				background: var(--omni-router-page-background, #FFFFFF);
+				background: var(--omni-router-page-background);
 			}
 
 			/** Fade In Animation */
