@@ -99,6 +99,8 @@ router.addRoute({
 router.load();
 ```
 
+<br>
+
 ### 💡 Example
 
 This example sets up a simple web page containing the Omni Router. Routes are registered on page load to navigate to individual web component pages using fade, slide, and pop animations.
@@ -216,6 +218,9 @@ class ViewFade extends HTMLElement {
 
 customElements.define('view-fade', ViewFade);
 ```
+
+<br>
+
 ### 🚩 Framework Stater Projects
 
 Starter projects are available in the [examples directory](./examples) for the following frameworks:
