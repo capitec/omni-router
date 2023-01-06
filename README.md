@@ -58,7 +58,7 @@ Core features of the library include:
 npm install @capitec/omni-router
 ```
 
-2️⃣ Specify a base href location in your `index.html` to use as root for page navigation.
+2️⃣ &nbsp; Specify a base href location in your `index.html` to use as root for page navigation.
 
 ```html
 <base href="/">
@@ -79,7 +79,7 @@ import '@capitec/omni-router';
 <omni-router></omni-router>
 ```
 
-5️⃣ Define the pages you will route to.
+5️⃣ &nbsp; Define the pages you will route to.
 
 ```js
  // Iniitialize the router.
@@ -282,6 +282,8 @@ The ```Route``` object contains the following properties:
 | **isDefault** | boolean | Optional, flag to set this route as the default route to load when the browser URL path is empty or default, e.g. ```/```. Note: can only be applied to 1 route. |
 | **isFallback** | boolean | Optional, flag to set this route as the fallback route to load when the user attempts to navigate to a route that does not exist, e.g. a 404 page. Note: can only be applied to 1 route. |
 
+<br>
+
 ### Path Patterns
 
 The router supports URL paths for the following patterns:
@@ -294,6 +296,8 @@ The router supports URL paths for the following patterns:
 
 > Note: Path part parameters must be valid URL characters including: Period (.), Dash (-), Characters (a-Z), Numbers (0-9).
 
+<br>
+
 ### Styling
 
 The router styling can be customized using the following CSS Custom Properties:
@@ -302,12 +306,7 @@ The router styling can be customized using the following CSS Custom Properties:
 | ------------ | ------------- | ----------- |
 | ```--omni-router-animation-duration``` | ```300ms``` | The duration it takes for route pages to be animated into view. |
 
-### Base URL
-
-To enable single page routing without causing the browser to reload, ensure a base path is specified in your ```index.html```, typically:
-```html
-<base href="/">
-```
+<br>
 
 ### Router Tag
 
@@ -317,6 +316,8 @@ The ```<omni-router>``` tag dispatches the following events, that may be useful 
 | ----- | ----------- |
 | navigation-started | Fired before the route starts navigating, e.g. after ```guard``` is successful, but before ```load``` is called. |
 | navigation-started | Fired after the route page has completely rendered on screen, e.g. after it was fully animated in. |
+
+<br>
 
 ### Router Class
 
