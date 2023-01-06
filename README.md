@@ -221,7 +221,7 @@ customElements.define('view-fade', ViewFade);
 
 <br>
 
-### 🚩 Framework Stater Projects
+### 🚩 Framework Starter Projects
 
 Starter projects are available in the [examples directory](./examples) for the following frameworks:
 
