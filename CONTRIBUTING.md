@@ -70,6 +70,8 @@ A vulnerability is typically a security-related risk associated with *any part* 
 * `develop` - Default branch for all Pull Requests.
 * `main` - Stable branch for all periodic releases.
 
+<br>
+
 ### 🔒 Dependencies
 
 * Git (v2+)
@@ -77,11 +79,15 @@ A vulnerability is typically a security-related risk associated with *any part* 
 * NPM (v7+)
 * VS Code + recommended extensions (recommended, but not required).
 
+<br>
+
 ### 📦 Project Setup
 
 1. [Fork](https://github.com/capitec/omni-router/fork) the repository and create a branch from `develop`.
 2. Clone the forked repo, checkout your branch, and run `npm ci` inside the repository root.
 3. Start up the dev server with `npm run serve` (or by launching debugging in VS Code).
+
+<br>
 
 ### 📂 Directory Structure
 
@@ -102,6 +108,8 @@ When contributing to the library, please note the following key files and direct
   * `RouterOutlet.ts` - The web component in which route pages are rendered.
   * `types.ts` - The public types used in the library.
 
+<br>
+
 ### 🏷 Naming Conventions
 
 - ✅ **Do** use *lower case* [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) for module file and folder names, e.g. `my-utils.ts`. 🍢
@@ -115,6 +123,8 @@ When contributing to the library, please note the following key files and direct
 - ✅ **Do** follow standard [TypeScript](https://www.typescriptlang.org/docs/), [Lit](https://lit.dev/docs/) related conventions. 
 
 > 💡 TIP: Refer to existing components and stories for examples. 
+
+<br>
 
 ### 🎯 Definition of Done
 
