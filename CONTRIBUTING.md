@@ -18,8 +18,6 @@ To get started, here's a few important guidelines we would like you to follow:
 
 Please read and follow our [Code of Conduct](https://github.com/capitec/omni-router/blob/develop/CODE_OF_CONDUCT.md).
 
-<br>
-
 ## 2. Issues
 
 Engagement always starts with an Issue where conversations and debates can occur around [bugs](#bugs) and [feature requests](#feature-requests):
@@ -47,8 +45,6 @@ A feature request is an improvement or new capability associated with *any part*
 
 > **TIP:** We suggest that you engage as much as possible within an Issue prior to proceeding with any contributions.
 
-<br>
-
 ## 3. Vulnerabilities
 
 A vulnerability is typically a security-related risk associated with *any part* of the project (or any dependencies):
@@ -57,29 +53,27 @@ A vulnerability is typically a security-related risk associated with *any part* 
 - ✅ **Do** report vulnerabilities via this [link](https://github.com/capitec/omni-router/security/advisories/new). 
 - ❌ **Do not** report any Issues or mention in public Discussions for discretionary purposes.
 
-<br>
-
 ## 4. Development
 
-### 🌱 Branches
+<h3 id="branches">🌱 Branches</h3>
 
 * `develop` - Default branch for all Pull Requests.
 * `main` - Stable branch for all periodic releases.
 
-### 🔒 Dependencies
+<h3 id="dependencies">🔒 Dependencies</h3>
 
 * Git (v2+)
 * Node.js (v16+)
 * NPM (v7+)
 * VS Code + recommended extensions (recommended, but not required).
 
-### 📦 Project Setup
+<h3 id="project-setup">📦 Project Setup</h3>
 
 1. [Fork](https://github.com/capitec/omni-router/fork) the repository and create a branch from `develop`.
 2. Clone the forked repo, checkout your branch, and run `npm ci` inside the repository root.
 3. Start up the dev server with `npm run serve` (or by launching debugging in VS Code).
 
-### 📂 Directory Structure
+<h3 id="directory-structure">📂 Directory Structure</h3>
 
 When contributing to the library, please note the following key files and directories:
 
@@ -98,7 +92,7 @@ When contributing to the library, please note the following key files and direct
   * `RouterOutlet.ts` - The web component in which route pages are rendered.
   * `types.ts` - The public types used in the library.
 
-### 🏷 Naming Conventions
+<h3 id="naming-conventions">🏷 Naming Conventions</h3>
 
 - ✅ **Do** use *lower case* [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) for module file and folder names, e.g. `my-utils.ts`. 🍢
 - ✅ **Do** use uppercase first letter [CamelCase](https://en.wikipedia.org/wiki/Camel_case) for class file names, e.g. `MyClass.ts`.
@@ -110,16 +104,14 @@ When contributing to the library, please note the following key files and direct
   * Theme: `--omni-theme-<state>-<css-property>`, e.g. `--omni-theme-primary-color`
 - ✅ **Do** follow standard [TypeScript](https://www.typescriptlang.org/docs/), [Lit](https://lit.dev/docs/) related conventions. 
 
-> 💡 TIP: Refer to existing components and stories for examples. 
+> **TIP:** Refer to existing components and stories for examples. 
 
-### 🎯 Definition of Done
+<h3 id="defintion-of-done">🎯 Definition of Done</h3>
 
 Here's a *non-exhaustive* list of requirements that are key to contributing to this project.
 
 - ✅ **Do** use [TypeScript](https://www.typescriptlang.org/docs/), with common language practices.
 - ✅ **Do** follow our [naming conventions](#naming-conventions).
-
-<br>
 
 ## 5. Pull Requests
 
