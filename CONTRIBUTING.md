@@ -1,4 +1,4 @@
-### Contributing
+# Contributing
 
 We value and encourage community contributions.
 
@@ -12,7 +12,7 @@ To get started, here's a few important guidelines we would like you to follow:
 
 ## 1. Code of Conduct
 
-Please read and follow our [Code of Conduct](https://github.com/capitec/omni-router/blob/develop/CODE_OF_CONDUCT.md).
+Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## 2. Issues
 
