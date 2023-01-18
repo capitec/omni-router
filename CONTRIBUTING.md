@@ -12,11 +12,7 @@ To get started, here's a few important guidelines we would like you to follow:
 4. [Development](#4-development)
 5. [Pull Requests](#5-pull-requests)
 
-<br>
-
 ---
-
-<br>
 
 ## 1. Code of Conduct
 
@@ -33,7 +29,7 @@ Engagement always starts with an Issue where conversations and debates can occur
 - ❌ **Do not** side-track or derail issues threads. Stick to the topic please.
 - ❌ **Do not** post comments using just "+1", "++" or "👍". Use [Reactions](https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/) instead.
 
-### 👾 Bugs
+<h3 id="bugs">👾 Bugs</h3>
 
 A bug is an error, flaw or fault associated with *any part* of the project:
 
@@ -41,7 +37,7 @@ A bug is an error, flaw or fault associated with *any part* of the project:
 - ✅ **Do** describe the bug concisely, **avoid** adding extraneous code, logs or screenshots.
 - ✅ **Do** attach a minimal test or repo (e.g. [CodePen](https://codepen.io/), [jsFiddle](https://jsfiddle.net/)) to demonstrate the bug.
 
-### 💡 Feature Requests
+<h3 id="feature-requests">💡 Feature Requests</h3>
 
 A feature request is an improvement or new capability associated with *any part* of the project:
 
@@ -49,7 +45,7 @@ A feature request is an improvement or new capability associated with *any part*
 - ✅ **Do** provide sufficient motivation / use case(s) for the feature. 
 - ❌ **Do not** submit multiple unrelated requests within one request.
 
-> 💡 **TIP:** We suggest that you engage as much as possible within an Issue prior to proceeding with any contributions.
+> **TIP:** We suggest that you engage as much as possible within an Issue prior to proceeding with any contributions.
 
 <br>
 
@@ -70,8 +66,6 @@ A vulnerability is typically a security-related risk associated with *any part* 
 * `develop` - Default branch for all Pull Requests.
 * `main` - Stable branch for all periodic releases.
 
-<br>
-
 ### 🔒 Dependencies
 
 * Git (v2+)
@@ -79,15 +73,11 @@ A vulnerability is typically a security-related risk associated with *any part* 
 * NPM (v7+)
 * VS Code + recommended extensions (recommended, but not required).
 
-<br>
-
 ### 📦 Project Setup
 
 1. [Fork](https://github.com/capitec/omni-router/fork) the repository and create a branch from `develop`.
 2. Clone the forked repo, checkout your branch, and run `npm ci` inside the repository root.
 3. Start up the dev server with `npm run serve` (or by launching debugging in VS Code).
-
-<br>
 
 ### 📂 Directory Structure
 
@@ -108,8 +98,6 @@ When contributing to the library, please note the following key files and direct
   * `RouterOutlet.ts` - The web component in which route pages are rendered.
   * `types.ts` - The public types used in the library.
 
-<br>
-
 ### 🏷 Naming Conventions
 
 - ✅ **Do** use *lower case* [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) for module file and folder names, e.g. `my-utils.ts`. 🍢
@@ -123,8 +111,6 @@ When contributing to the library, please note the following key files and direct
 - ✅ **Do** follow standard [TypeScript](https://www.typescriptlang.org/docs/), [Lit](https://lit.dev/docs/) related conventions. 
 
 > 💡 TIP: Refer to existing components and stories for examples. 
-
-<br>
 
 ### 🎯 Definition of Done
 
@@ -140,5 +126,3 @@ Here's a *non-exhaustive* list of requirements that are key to contributing to t
 - ✅ **Do** ensure the branch is up to date with the `develop` branch.
 - ✅ **Do** ensure there's no conflicts with the `develop` branch.
 - ✅ **Do** ensure that all automatic [checks](#checks) pass. ✔
-
-<br>
