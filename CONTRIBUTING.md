@@ -1,6 +1,4 @@
-<h1 align="center">Contributing</h1>
-
-<br>
+### Contributing
 
 We value and encourage community contributions.
 
@@ -11,8 +9,6 @@ To get started, here's a few important guidelines we would like you to follow:
 3. [Vulnerabilities](#3-vulnerabilities)
 4. [Development](#4-development)
 5. [Pull Requests](#5-pull-requests)
-
----
 
 ## 1. Code of Conduct
 
