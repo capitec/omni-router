@@ -310,6 +310,7 @@ The router styling can be customized using the following CSS Custom Properties:
 | CSS Variable | Default Value | Description |
 | ------------ | ------------- | ----------- |
 | ```--omni-router-animation-duration``` | ```300ms``` | The duration it takes for route pages to be animated into view. |
+| ```--omni-router-animation-z-index``` | ```1000000``` | The z-index to apply to the page being routed to. Set to a value higher than your app's highest z-index value to prevent elements from appearing above the page while routing. |
 
 <br>
 

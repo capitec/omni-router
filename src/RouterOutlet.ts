@@ -90,7 +90,7 @@ export class RouterOutlet extends HTMLElement {
 			.fade-in.animate {
 				animation: fadein var(--omni-router-animation-duration, 300ms) both;
 				
-				z-index: 100;
+				z-index: var(--omni-router-animation-z-index, 1000000);
 			}
 
 			@keyframes fadein {
@@ -111,7 +111,7 @@ export class RouterOutlet extends HTMLElement {
 			.fade-out.animate {
 				animation: fadeout var(--omni-router-animation-duration, 300ms) both;
 
-				z-index: 100;
+				z-index: var(--omni-router-animation-z-index, 1000000);
 			}
 
 			@keyframes fadeout {
@@ -133,7 +133,7 @@ export class RouterOutlet extends HTMLElement {
 				animation: slidein var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
 
-				z-index: 100;
+				z-index: var(--omni-router-animation-z-index, 1000000);
 			}
 
 			@keyframes slidein {
@@ -155,7 +155,7 @@ export class RouterOutlet extends HTMLElement {
 				animation: slideout var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
 
-				z-index: 100;
+				z-index: var(--omni-router-animation-z-index, 1000000);
 			}
 
 			@keyframes slideout {
@@ -177,7 +177,7 @@ export class RouterOutlet extends HTMLElement {
 				animation: popin var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
 
-				z-index: 100;
+				z-index: var(--omni-router-animation-z-index, 1000000);
 			}
 
 			@keyframes popin {
@@ -199,7 +199,7 @@ export class RouterOutlet extends HTMLElement {
 				animation: popout var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
 
-				z-index: 100;
+				z-index: var(--omni-router-animation-z-index, 1000000);
 			}
 
 			@keyframes popout {
