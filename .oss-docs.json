@@ -1,11 +1,4 @@
 {
 	"display": "Omni Router",
-	"repo": "https://github.com/capitec/omni-router",
-	"links": [
-		{
-			"name": "NPM",
-			"icon": "https://avatars.githubusercontent.com/u/6078720",
-			"url": "https://www.npmjs.com/package/@capitec/omni-router"
-		}
-	]
+	"logo": "https://raw.githubusercontent.com/capitec/omni-router/develop/docs/logos/omni.png"
 }
