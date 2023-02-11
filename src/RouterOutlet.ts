@@ -18,10 +18,15 @@ type RouteTask = {
  *
  * Usage:
  * ```html
- *     <omni-router-outlet
+ *     <omni-router
  *         @navigation-started="${() => console.log(`Route '${route.name}' started to load`)}"
  *         @navigation-completed="${() => console.log(`Route '${route.name}' finished loading`)}">
- *     </omni-router-outlet>
+ *     </omni-router>
+ * 
+ * @element omni-router
+ * 
+ * @fires {CustomEvent<RoutedLocation>} navigation-started - Dispatched when the a new page starts loading.
+ * @fires {CustomEvent<RoutedLocation>} navigation-completed - Dispatched when the new page is visible.
  * ```
  */
 export class RouterOutlet extends HTMLElement {
@@ -326,7 +331,7 @@ export class RouterOutlet extends HTMLElement {
 
 		// Notify any subscribers that the route has start to load.
 		this.dispatchEvent(
-			new CustomEvent('navigation-started', {
+			new CustomEvent<RoutedLocation>('navigation-started', {
 				detail: this._currentLocation,
 				bubbles: true,
 				composed: true
@@ -426,7 +431,7 @@ export class RouterOutlet extends HTMLElement {
 
 		// Notify any subscribers that the route has finished loading.
 		this.dispatchEvent(
-			new CustomEvent('navigation-completed', {
+			new CustomEvent<RoutedLocation>('navigation-completed', {
 				detail: this._currentLocation,
 				bubbles: true,
 				composed: true
@@ -462,3 +467,9 @@ export class RouterOutlet extends HTMLElement {
 }
 
 customElements.define('omni-router', RouterOutlet);
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'omni-router': RouterOutlet;
+	}
+}
