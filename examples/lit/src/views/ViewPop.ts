@@ -85,7 +85,7 @@ export class ViewPop extends LitElement {
 			<p>👋 Hey there, I animated into view with a <strong>pop</strong> animation!</p>
 			<p>If you press back here or go back via the browser history, I'll <strong>pop</strong> out.</p>
 
-			<button id="back">⬅ Go Back</button>
+			<button @click="${() => this._navigateBack()}">⬅ Go Back</button>
 		`;
 	}
 

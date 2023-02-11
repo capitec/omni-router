@@ -84,7 +84,7 @@ export class ViewGuarded extends LitElement {
 			
 			<p>👋 Hey there, I'm protected by a guard function.</p>
 
-			<button id="back">⬅ Go Back</button>
+			<button @click="${() => this._navigateBack()}">⬅ Go Back</button>
 		`;
 	}
 

@@ -605,7 +605,7 @@ export class Router {
 
 				listener({
 					previous: this._previousLocation,
-					current: this._currentLocation,
+					current: this._currentLocation
 				});
 			}
 		}
