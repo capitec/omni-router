@@ -22,6 +22,7 @@ type RouteTask = {
  *         @navigation-started="${() => console.log(`Route '${route.name}' started to load`)}"
  *         @navigation-completed="${() => console.log(`Route '${route.name}' finished loading`)}">
  *     </omni-router>
+ * ```
  * 
  * @element omni-router
  * 
