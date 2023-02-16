@@ -28,7 +28,7 @@ export class ViewFallback extends LitElement {
 			box-sizing: border-box;
 			padding: 20px;
 
-			--omni-router-page-background: #eeffee;
+			background-color: #eeffee;
 		}
 
 		@media only screen and (max-height: 720px) {
@@ -84,7 +84,7 @@ export class ViewFallback extends LitElement {
 
 			<p>Oops, looks like the page you are looking for does not exist.</p>
 
-			<button id="back">⬅ Go Back</button>
+			<button @click="${() => this._navigateBack()}">⬅ Go Back</button>
 		`;
 	}
 

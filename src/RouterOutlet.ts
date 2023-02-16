@@ -18,28 +18,34 @@ type RouteTask = {
  *
  * Usage:
  * ```html
- *     <omni-router-outlet
+ *     <omni-router
  *         @navigation-started="${() => console.log(`Route '${route.name}' started to load`)}"
  *         @navigation-completed="${() => console.log(`Route '${route.name}' finished loading`)}">
- *     </omni-router-outlet>
+ *     </omni-router>
+ * ```
+ * 
+ * @element omni-router
+ * 
+ * @fires {CustomEvent<RoutedLocation>} navigation-started - Dispatched when the a new page starts loading.
+ * @fires {CustomEvent<RoutedLocation>} navigation-completed - Dispatched when the new page is visible.
  * ```
  */
 export class RouterOutlet extends HTMLElement {
 
 	/** The instance to the router singleton. */
-	_router: Router;
+	private _router: Router;
 
 	/** The routed location that is currently loaded in the outlet. */
-	_currentLocation?: RoutedLocation;
+	private _currentLocation?: RoutedLocation;
 
 	/** The routed location that was previously loaded in the outlet. */
-	_previousLocation?: RoutedLocation;
+	private _previousLocation?: RoutedLocation;
 
 	/** Indicator if there is a routing animation currently playing. */
-	_isAnimating: boolean;
+	private _isAnimating: boolean;
 
 	/** List of queued navigation animation tasks. */
-	_animationQueue: RouteTask[] = [];
+	private _animationQueue: RouteTask[] = [];
 
 	// --------------
 	// INITIALIZATION
@@ -79,8 +85,6 @@ export class RouterOutlet extends HTMLElement {
 				bottom: 0;
 				left: 0;
 				right: 0;
-
-				background: var(--omni-router-page-background, #FFFFFF);
 			}
 
 			/** Fade In Animation */
@@ -92,7 +96,7 @@ export class RouterOutlet extends HTMLElement {
 			.fade-in.animate {
 				animation: fadein var(--omni-router-animation-duration, 300ms) both;
 				
-				z-index: 100;
+				z-index: var(--omni-router-animation-z-index, 1000000);
 			}
 
 			@keyframes fadein {
@@ -113,7 +117,7 @@ export class RouterOutlet extends HTMLElement {
 			.fade-out.animate {
 				animation: fadeout var(--omni-router-animation-duration, 300ms) both;
 
-				z-index: 100;
+				z-index: var(--omni-router-animation-z-index, 1000000);
 			}
 
 			@keyframes fadeout {
@@ -135,7 +139,7 @@ export class RouterOutlet extends HTMLElement {
 				animation: slidein var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
 
-				z-index: 100;
+				z-index: var(--omni-router-animation-z-index, 1000000);
 			}
 
 			@keyframes slidein {
@@ -157,7 +161,7 @@ export class RouterOutlet extends HTMLElement {
 				animation: slideout var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
 
-				z-index: 100;
+				z-index: var(--omni-router-animation-z-index, 1000000);
 			}
 
 			@keyframes slideout {
@@ -179,7 +183,7 @@ export class RouterOutlet extends HTMLElement {
 				animation: popin var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
 
-				z-index: 100;
+				z-index: var(--omni-router-animation-z-index, 1000000);
 			}
 
 			@keyframes popin {
@@ -201,7 +205,7 @@ export class RouterOutlet extends HTMLElement {
 				animation: popout var(--omni-router-animation-duration, 300ms) both;
 				animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
 
-				z-index: 100;
+				z-index: var(--omni-router-animation-z-index, 1000000);
 			}
 
 			@keyframes popout {
@@ -223,7 +227,7 @@ export class RouterOutlet extends HTMLElement {
 	connectedCallback(): void {
 
 		// Set this outlet as the route rendering handler for the router.
-		this._router.onNavigate = (route, animation): Promise<void> => this.loadRoute(route, animation);
+		this._router.onNavigate = (route, animation): Promise<void> => this._loadRoute(route, animation);
 	}
 
 	/**
@@ -245,6 +249,12 @@ export class RouterOutlet extends HTMLElement {
 	// PUBLIC METHODS
 	// --------------
 
+	// n/a
+
+	// ---------------
+	// PRIVATE METHODS
+	// ---------------
+
 	/**
 	 * Load a route into view.
 	 *
@@ -255,7 +265,7 @@ export class RouterOutlet extends HTMLElement {
 	 * @param routedLocation - The the routed location to load.
 	 * @param animation - The animation to play to bring the new route into view.
 	 */
-	private async loadRoute(routedLocation: RoutedLocation, animation?: RouteAnimationIn | RouteAnimationOut): Promise<void> {
+	private async _loadRoute(routedLocation: RoutedLocation, animation?: RouteAnimationIn | RouteAnimationOut): Promise<void> {
 
 		// Ensure a valid route is provided.
 		const route = routedLocation.route;
@@ -284,7 +294,7 @@ export class RouterOutlet extends HTMLElement {
 	/**
 	 * Process the queue of route load tasks.
 	 */
-	async _processNextQueueItem(): Promise<void> {
+	private async _processNextQueueItem(): Promise<void> {
 
 		// Remove the task next available from the queue.
 		const routeRequest = this._animationQueue.shift();
@@ -322,7 +332,7 @@ export class RouterOutlet extends HTMLElement {
 
 		// Notify any subscribers that the route has start to load.
 		this.dispatchEvent(
-			new CustomEvent('navigation-started', {
+			new CustomEvent<RoutedLocation>('navigation-started', {
 				detail: this._currentLocation,
 				bubbles: true,
 				composed: true
@@ -422,7 +432,7 @@ export class RouterOutlet extends HTMLElement {
 
 		// Notify any subscribers that the route has finished loading.
 		this.dispatchEvent(
-			new CustomEvent('navigation-completed', {
+			new CustomEvent<RoutedLocation>('navigation-completed', {
 				detail: this._currentLocation,
 				bubbles: true,
 				composed: true
@@ -433,16 +443,12 @@ export class RouterOutlet extends HTMLElement {
 		await this._processNextQueueItem();
 	}
 
-	// ---------------
-	// PRIVATE METHODS
-	// ---------------
-
 	/**
 	 * Get the DOM element of the currently routed to page.
 	 *
 	 * @returns The routed page route element.
 	 */
-	_getCurrentRouteComponent(): Element | null {
+	private _getCurrentRouteComponent(): Element | null {
 
 		if (!this.shadowRoot) {
 			return null;
@@ -462,3 +468,9 @@ export class RouterOutlet extends HTMLElement {
 }
 
 customElements.define('omni-router', RouterOutlet);
+
+declare global {
+	interface HTMLElementTagNameMap {
+		'omni-router': RouterOutlet;
+	}
+}

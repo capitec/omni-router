@@ -27,6 +27,11 @@ export type RouteAnimation = 'fade' | 'slide' | 'pop';
 export type RouterEventType = 'route-loaded';
 
 /**
+ * The callback function invoked when a route is loaded.
+ */
+export type RouterEventCallback = (detail: { previous?: RoutedLocation, current: RoutedLocation }) => void;
+
+/**
  * A navigable route configuration.
  */
 export type Route = {

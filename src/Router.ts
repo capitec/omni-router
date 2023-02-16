@@ -1,10 +1,10 @@
-import { Route, RouteAnimationIn, RouteAnimationOut, RouterEventType, RoutedLocation } from './types.js';
+import { Route, RouteAnimationIn, RouteAnimationOut, RouterEventCallback, RouterEventType, RoutedLocation } from './types.js';
 
 /**
  * Map of subscribers that listen to router events.
  */
 type RouteEventListenersMap = {
-	'route-loaded': ((args: { previous?: RoutedLocation; current: RoutedLocation }) => void)[];
+	'route-loaded': RouterEventCallback[];
 };
 
 /**
@@ -66,18 +66,18 @@ export class Router {
 	private static _instance: Router;
 
 	/** The registered route configurations. */
-	_routes: Route[] = [];
+	private _routes: Route[] = [];
 
 	/** Map of the events dispatch by the router and their listeners. */
-	_eventListeners: RouteEventListenersMap = {
+	private _eventListeners: RouteEventListenersMap = {
 		'route-loaded': []
 	};
 
 	/** The current location routed to. */
-	_currentLocation?: RoutedLocation;
+	private _currentLocation?: RoutedLocation;
 
 	/** The previous location routed to.  */
-	_previousLocation?: RoutedLocation;
+	private _previousLocation?: RoutedLocation;
 
 	/** The router outlet rendering function to call when a route navigation occurs. */
 	onNavigate?: RouteNavigationFunction;
@@ -87,7 +87,7 @@ export class Router {
 	// --------------
 
 	/**
-	 * Initialise the router.
+	 * Initialize the router.
 	 */
 	private constructor() {
 
@@ -167,7 +167,7 @@ export class Router {
 	 * @param eventName - The name of the event to subscribe to.
 	 * @param callback - The function to invoke when the event occurs.
 	 */
-	addEventListener(eventName: RouterEventType, callback: () => void): void {
+	addEventListener(eventName: RouterEventType, callback: RouterEventCallback): void {
 
 		// Validate the function parameters.
 		if (!eventName) {

@@ -30,7 +30,7 @@ class ViewGuarded extends HTMLElement {
 					box-sizing: border-box;
 					padding: 20px;
 
-					--omni-router-page-background: #eeffff;
+					background-color: #eeffff;
 				}
 
 				@media only screen and (max-height: 720px) {

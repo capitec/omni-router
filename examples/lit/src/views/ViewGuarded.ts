@@ -28,7 +28,7 @@ export class ViewGuarded extends LitElement {
 			box-sizing: border-box;
 			padding: 20px;
 
-			--omni-router-page-background: #eeffee;
+			background-color: #eeffee;
 		}
 
 		@media only screen and (max-height: 720px) {
@@ -84,7 +84,7 @@ export class ViewGuarded extends LitElement {
 			
 			<p>👋 Hey there, I'm protected by a guard function.</p>
 
-			<button id="back">⬅ Go Back</button>
+			<button @click="${() => this._navigateBack()}">⬅ Go Back</button>
 		`;
 	}
 

@@ -28,7 +28,7 @@ export class ViewFade extends LitElement {
 			box-sizing: border-box;
 			padding: 20px;
 
-			--omni-router-page-background: #eeffee;
+			background-color: #eeffee;
 		}
 
 		@media only screen and (max-height: 720px) {
@@ -85,7 +85,7 @@ export class ViewFade extends LitElement {
 			<p>👋 Hey there, I animated into view with a <strong>fade</strong> animation!</p>
 			<p>If you press back here or go back via the browser history, I'll <strong>fade</strong> out.</p>
 
-			<button id="back" @click="${() => this._navigateBack()}">⬅ Go Back</button>
+			<button @click="${() => this._navigateBack()}">⬅ Go Back</button>
 		`;
 	}
 

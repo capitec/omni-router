@@ -30,7 +30,7 @@ class ViewFallback extends HTMLElement {
 					box-sizing: border-box;
 					padding: 20px;
 
-					--omni-router-page-background: #ffffee;
+					background-color: #ffffee;
 				}
 
 				@media only screen and (max-height: 720px) {
