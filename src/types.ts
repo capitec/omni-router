@@ -51,8 +51,8 @@ export type Route = {
 	/** Function to execute that lazy loads the web component. */
 	load?: () => Promise<unknown>;
 
-	/** unction to execute to determine if the view is allowed to be loaded. */
-	guard?: () => boolean;
+	/** Function to execute to determine if the view is allowed to be loaded. */
+	guard?: () => boolean | Promise<boolean>;
 
 	/** Set to load this route if the base URL of the web app is loaded. */
 	isDefault?: boolean;
