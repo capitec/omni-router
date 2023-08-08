@@ -283,7 +283,7 @@ The ```Route``` object contains the following properties:
 | **title** | string | The window title to show when the route is loaded, e.g. ```'Login'``` |
 | **animation** | string | Optional, animation to apply when loading the route. Can be one of ```fade```, ```slide```, ```pop```
 | **load** | function | Optional, function to execute before navigating to the route. Typically used to lazy load the page web component, e.g. <br>```() => import('./views/ViewLogin')``` |
-| **load** | function | Optional, function to execute to check if a route may be navigated to. Typically used to limit access to routes., e.g. <br>```() => !this._isUserLoggedIn()``` |
+| **guard** | function | Optional, function to execute to check if a route may be navigated to. Typically used to limit access to routes., e.g. <br>```() => !this._isUserLoggedIn()``` |
 | **isDefault** | boolean | Optional, flag to set this route as the default route to load when the browser URL path is empty or default, e.g. ```/```. Note: can only be applied to 1 route. |
 | **isFallback** | boolean | Optional, flag to set this route as the fallback route to load when the user attempts to navigate to a route that does not exist, e.g. a 404 page. Note: can only be applied to 1 route. |
 

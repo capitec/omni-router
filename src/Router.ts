@@ -92,7 +92,9 @@ export class Router {
 	private constructor() {
 
 		// Update the visible route when browser navigation buttons are pressed or the History API is used directly to navigate.
-		window.addEventListener('popstate', this._onPopState.bind(this));
+		window.addEventListener('popstate', async () => { // eslint-disable-line @typescript-eslint/no-misused-promises
+			await this._onPopState()
+		});
 	}
 
 	/**
@@ -390,7 +392,7 @@ export class Router {
 		}
 
 		// Prevent navigating to a guarded route.
-		if (route.guard && !route.guard()) {
+		if (route.guard && !(await route.guard())) {
 
 			console.warn(`[Router] Route "${route.name}" stopped by its guard function, unable to navigate.`);
 
@@ -428,7 +430,7 @@ export class Router {
 		}
 
 		// Prevent navigating to a guarded route.
-		if (route.guard && !route.guard()) {
+		if (route.guard && !(await route.guard())) {
 
 			console.warn(`[Router] Route "${route.name}" stopped by its guard function, unable to navigate.`);
 
@@ -469,7 +471,7 @@ export class Router {
 		}
 
 		// Prevent navigating to a guarded route.
-		if (route.guard && !route.guard()) {
+		if (route.guard && !(await route.guard())) {
 
 			console.warn(`[Router] Route "${route.name}" stopped by its guard function, unable to navigate.`);
 
@@ -498,7 +500,7 @@ export class Router {
 	/**
 	 * Render the registered route of the current browser URL when a browser navigation button was pressed or navigation API for the back, forward, and go actions was called.
 	 */
-	private _onPopState(): void {
+	private async _onPopState(): Promise<void> {
 
 		//
 		// NOTE:
@@ -533,7 +535,7 @@ export class Router {
 		}
 
 		// Prevent navigating to a guarded route.
-		if (route.guard && !route.guard()) {
+		if (route.guard && !(await route.guard())) {
 
 			console.warn(`[Router] Route "${route.name}" stopped by its guard function, unable to navigate.`);
 
@@ -541,7 +543,7 @@ export class Router {
 		}
 
 		// Render the route that matches the browser URL path.
-		void this._applyRoute(route, backPressed);
+		await this._applyRoute(route, backPressed);
 	}
 
 	// ---------------
