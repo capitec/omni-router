@@ -24,7 +24,7 @@ export type RouteAnimation = 'fade' | 'slide' | 'pop';
 /**
  * List of events dispatched by the router.
  */
-export type RouterEventType = 'route-loaded';
+export type RouterEventType = 'route-loading' | 'route-loaded';
 
 /**
  * The callback function invoked when a route is loaded.
