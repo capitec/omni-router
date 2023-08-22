@@ -4,6 +4,7 @@ import { Route, RouteAnimationIn, RouteAnimationOut, RouterEventCallback, Router
  * Map of subscribers that listen to router events.
  */
 type RouteEventListenersMap = {
+	'route-loading': RouterEventCallback[];
 	'route-loaded': RouterEventCallback[];
 };
 
@@ -70,6 +71,7 @@ export class Router {
 
 	/** Map of the events dispatch by the router and their listeners. */
 	private _eventListeners: RouteEventListenersMap = {
+		'route-loading': [],
 		'route-loaded': []
 	};
 
@@ -598,6 +600,15 @@ export class Router {
 
 		// Request that the router outlet render the new route.
 		if (this.onNavigate) {
+
+			// Notify subscribers that the route has started loading.
+			for (const listener of this._eventListeners['route-loading']) {
+
+				listener({
+					previous: this._previousLocation,
+					current: this._currentLocation
+				});
+			}
 
 			// Load the route.
 			await this.onNavigate(this._currentLocation, animation);

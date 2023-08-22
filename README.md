@@ -347,7 +347,7 @@ The ```Router``` class provides the following properties and functions:
 | ```getRouteForPath(pathOrUrl: string): Route \| null``` | Get the registered route for the given path. |
 | ```setDefault(name: string): boolean``` | Set the route that should be rendered when navigating to the app base URL. |
 | ```setFallback(name: string): boolean``` | Set the route that should be rendered when navigating to a route that does not exist. |
-| ```load(): Promise\<void\>``` | Navigate to the current browser URL path. |
+| ```load(): Promise<void>``` | Navigate to the current browser URL path. |
 | ```push(path: string, state = {}): Promise\<void\>``` | Push a new path onto the browser history stack and render it's registered route. |
 | ```replace(path: string, state = {}): Promise\<void\>``` | Update the current path in the browser history stack with a new path and render it's registered route. |
 | ```pop(): void``` | Pops the current path in the browser history stack and navigate the previous path. |
