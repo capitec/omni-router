@@ -61,7 +61,7 @@ export type RouteNavigationFunction = (route: RoutedLocation, animation?: RouteA
  *   <omni-router-outlet></omni-router-outlet>
  * ```
  */
-export class RouterImpl {
+class RouterImpl {
 
 	/** The registered route configurations. */
 	private _routes: Route[] = [];
