@@ -82,11 +82,8 @@ import '@capitec/omni-router';
 5️⃣ &nbsp; Define the pages you will route to.
 
 ```js
- // Iniitialize the router.
-const router = Router.getInstance();
-
 // Register the app routes.
-router.addRoute({
+Router.addRoute({
     name: 'view-fade',
     title: 'Fade',
     path: '/fade',
@@ -96,7 +93,7 @@ router.addRoute({
 });
 
 // Load the route matching the current browser path.
-router.load();
+Router.load();
 ```
 
 <br>
@@ -119,11 +116,8 @@ This example sets up a simple web page containing the Omni Router. Routes are re
         <script type="module">
             import { Router } from '@capitec/omni-router';
 
-            // Iniitialize the router.
-            const router = Router.getInstance();
-
             // Register the app routes.
-            router.addRoute({
+            Router.addRoute({
                 name: 'view-fade',
                 title: 'Fade',
                 path: '/fade',
@@ -132,7 +126,7 @@ This example sets up a simple web page containing the Omni Router. Routes are re
                 isDefault: true
             });
 
-            router.addRoute({
+            Router.addRoute({
                 name: 'view-slide',
                 title: 'Slide',
                 path: '/slide',
@@ -140,7 +134,7 @@ This example sets up a simple web page containing the Omni Router. Routes are re
                 load: () => import('./views/ViewSlide')
             });
 
-            router.addRoute({
+            Router.addRoute({
                 name: 'view-pop',
                 title: 'Pop',
                 path: '/pop',
@@ -148,7 +142,7 @@ This example sets up a simple web page containing the Omni Router. Routes are re
                 load: () => import('./views/ViewPop')
             });
 
-            router.addRoute({
+            Router.addRoute({
                 name: 'view-guarded',
                 title: 'Guarded Route',
                 path: '/guarded',
@@ -156,7 +150,7 @@ This example sets up a simple web page containing the Omni Router. Routes are re
                 guard: () => !this._isUserLoggedIn()
             });
 
-            router.addRoute({
+            Router.addRoute({
                 name: 'view-fallback',
                 title: 'Fallback Route',
                 path: '/error404',
@@ -165,7 +159,7 @@ This example sets up a simple web page containing the Omni Router. Routes are re
             });
 
             // Load the route matching the current browser path.
-            router.load();
+            Router.load();
         </script>
 
         <script type="module" src="./AppShell.js"></script>
@@ -188,9 +182,6 @@ class ViewFade extends HTMLElement {
 
         super();
 
-        // Connect application services.
-        this._router = Router.getInstance();
-
         // Create the DOM content template.
         const template = document.createElement('template');
         template.innerHTML = `
@@ -212,7 +203,7 @@ class ViewFade extends HTMLElement {
         this.shadowRoot.appendChild(template.content.cloneNode(true));
 
         // Register element event listeners.
-        this.shadowRoot.querySelector('#back').addEventListener('click', () => this._router.pop());
+        this.shadowRoot.querySelector('#back').addEventListener('click', () => Router.pop());
     }
 }
 
@@ -347,7 +338,7 @@ The ```Router``` class provides the following properties and functions:
 | ```getRouteForPath(pathOrUrl: string): Route \| null``` | Get the registered route for the given path. |
 | ```setDefault(name: string): boolean``` | Set the route that should be rendered when navigating to the app base URL. |
 | ```setFallback(name: string): boolean``` | Set the route that should be rendered when navigating to a route that does not exist. |
-| ```load(): Promise\<void\>``` | Navigate to the current browser URL path. |
+| ```load(): Promise<void>``` | Navigate to the current browser URL path. |
 | ```push(path: string, state = {}): Promise\<void\>``` | Push a new path onto the browser history stack and render it's registered route. |
 | ```replace(path: string, state = {}): Promise\<void\>``` | Update the current path in the browser history stack with a new path and render it's registered route. |
 | ```pop(): void``` | Pops the current path in the browser history stack and navigate the previous path. |

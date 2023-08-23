@@ -32,9 +32,6 @@ type RouteTask = {
  */
 export class RouterOutlet extends HTMLElement {
 
-	/** The instance to the router singleton. */
-	private _router: Router;
-
 	/** The routed location that is currently loaded in the outlet. */
 	private _currentLocation?: RoutedLocation;
 
@@ -59,7 +56,6 @@ export class RouterOutlet extends HTMLElement {
 		super();
 
 		// Initialize default properties.
-		this._router = Router.getInstance();
 		this._isAnimating = false;
 
 		// Create the element shadow root.
@@ -227,7 +223,7 @@ export class RouterOutlet extends HTMLElement {
 	connectedCallback(): void {
 
 		// Set this outlet as the route rendering handler for the router.
-		this._router.onNavigate = (route, animation): Promise<void> => this._loadRoute(route, animation);
+		Router.onNavigate = (route, animation): Promise<void> => this._loadRoute(route, animation);
 	}
 
 	/**
@@ -236,7 +232,7 @@ export class RouterOutlet extends HTMLElement {
 	disconnectedCallback(): void {
 
 		// Stop rendering on router navigation changes.
-		this._router.onNavigate = undefined;
+		Router.onNavigate = undefined;
 	}
 
 	// ----------

@@ -4,6 +4,7 @@ import { Route, RouteAnimationIn, RouteAnimationOut, RouterEventCallback, Router
  * Map of subscribers that listen to router events.
  */
 type RouteEventListenersMap = {
+	'route-loading': RouterEventCallback[];
 	'route-loaded': RouterEventCallback[];
 };
 
@@ -60,16 +61,14 @@ export type RouteNavigationFunction = (route: RoutedLocation, animation?: RouteA
  *   <omni-router-outlet></omni-router-outlet>
  * ```
  */
-export class Router {
-
-	/**  The singleton instance of the router. */
-	private static _instance: Router;
+class RouterImpl {
 
 	/** The registered route configurations. */
 	private _routes: Route[] = [];
 
 	/** Map of the events dispatch by the router and their listeners. */
 	private _eventListeners: RouteEventListenersMap = {
+		'route-loading': [],
 		'route-loaded': []
 	};
 
@@ -89,7 +88,7 @@ export class Router {
 	/**
 	 * Initialize the router.
 	 */
-	private constructor() {
+	constructor() {
 
 		// Update the visible route when browser navigation buttons are pressed or the History API is used directly to navigate.
 		window.addEventListener('popstate', async () => { // eslint-disable-line @typescript-eslint/no-misused-promises
@@ -100,11 +99,13 @@ export class Router {
 	/**
 	 * Get the singleton instance of the router.
 	 * 
+	 * @deprecated Use Router module directly instead, e.g. Router.addRoute(...) instead of Router.getInstance.addRoute()
+	 * 
 	 * @returns The router instance.
 	 */
-	static getInstance(): Router {
+	getInstance(): this {
 
-		return this._instance || (this._instance = new Router());
+		return this;
 	}
 
 	// ----------
@@ -599,6 +600,15 @@ export class Router {
 		// Request that the router outlet render the new route.
 		if (this.onNavigate) {
 
+			// Notify subscribers that the route has started loading.
+			for (const listener of this._eventListeners['route-loading']) {
+
+				listener({
+					previous: this._previousLocation,
+					current: this._currentLocation
+				});
+			}
+
 			// Load the route.
 			await this.onNavigate(this._currentLocation, animation);
 
@@ -647,3 +657,6 @@ export class Router {
 		return pathParams;
 	}
 }
+
+// Export a singleton instance of the router.
+export const Router = new RouterImpl();
