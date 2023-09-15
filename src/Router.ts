@@ -276,6 +276,11 @@ class RouterImpl {
 	 */
 	getRouteForPath(pathOrUrl: string): Route | null {
 
+		// No routes setup, return without further processing.
+		if (this._routes.length === 0) {
+			return null;
+		}
+
 		// Extract the path part from the given URL.
 		let path = pathOrUrl.replace(window.location.origin, '');
 
@@ -502,6 +507,11 @@ class RouterImpl {
 	 * Render the registered route of the current browser URL when a browser navigation button was pressed or navigation API for the back, forward, and go actions was called.
 	 */
 	private async _onPopState(): Promise<void> {
+
+		// If the router has no routes, abort further processing.
+		if (this._routes.length === 0) {
+			return;
+		}
 
 		//
 		// NOTE:
