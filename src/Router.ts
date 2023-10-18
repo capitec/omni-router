@@ -488,7 +488,7 @@ class RouterImpl {
 		history.replaceState(state, route.name, path);
 
 		// Render the route that matches the browser URL path.
-		await this._applyRoute(route);
+		await this._applyRoute(route, false, true);
 	}
 
 	/**
@@ -566,16 +566,19 @@ class RouterImpl {
 	 * 
 	 * @param route - The route to navigate to.
 	 * @param animateOut - Set to animate out the current view using the opposite effect of how it was animated in.
+	 * @param isReplace - Set to prevent updating previousLocation for replaces as per the native history api.
 	 */
-	private async _applyRoute(route: Route, animateOut = false): Promise<void> {
+	private async _applyRoute(route: Route, animateOut = false, isReplace = false): Promise<void> {
 
 		// Set the page title.
 		if (route.title) {
 			document.title = route.title;
 		}
 
-		// Keep record of the route history.
-		this._previousLocation = this._currentLocation;
+	        if (!isReplace) {
+	            // Keep record of the route history.
+	            this._previousLocation = this._currentLocation;
+	        }
 
 		// Build up the new route information.
 		this._currentLocation = {
