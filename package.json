@@ -1,6 +1,6 @@
 {
 	"name": "@capitec/omni-router",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"description": "Framework agnostic, zero dependency, client-side web component router",
 	"author": "Capitec",
 	"license": "MIT",
@@ -20,14 +20,14 @@
 	},
 	"files": [
 		"dist",
-		"!dist/*.tests.*",
-		"!dist/*.test.*",
-		"!dist/*.spec.*",
-		"src/*.ts",
-		"src/*.js",
-		"!src/*.spec.*",
-		"!src/*.tests.*",
-		"!src/*.test.*"
+		"!dist/**/*.tests.*",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*",
+		"src/**/*.ts",
+		"src/**/*.js",
+		"!src/**/*.spec.*",
+		"!src/**/*.tests.*",
+		"!src/**/*.test.*"
 	],
 	"scripts": {
 		"build": "tsc",
