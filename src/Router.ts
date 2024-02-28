@@ -66,6 +66,9 @@ class RouterImpl {
 	/** The registered route configurations. */
 	private _routes: Route[] = [];
 
+	/** The history of paths routed to. */
+	private _pathStack: string[] = [];
+
 	/** Map of the events dispatch by the router and their listeners. */
 	private _eventListeners: RouteEventListenersMap = {
 		'route-loading': [],
@@ -80,6 +83,9 @@ class RouterImpl {
 
 	/** The router outlet rendering function to call when a route navigation occurs. */
 	onNavigate?: RouteNavigationFunction;
+
+	/** Indicator if the router should log out debug messages. */
+	DEBUG = false;
 
 	// --------------
 	// INITIALIZATION
@@ -134,6 +140,21 @@ class RouterImpl {
 	get previousLocation(): RoutedLocation | undefined {
 
 		return this._previousLocation;
+	}
+
+	/**
+	 * Get the list of paths routed to.
+	 * 
+	 * NOTE: this is an in memory list that can get out of sync with the browser history API when the user refreshes the page manually. Unfortunately there is no way
+	 * to read the browser history. The Navigation API looks promising, but is only available currently from Chrome 102, and not at all on Firefox or Safari.
+	 *
+	 * @readonly
+	 * 
+	 * @returns The routed location information.
+	 */
+	get history(): string[] {
+
+		return this._pathStack;
 	}
 
 	/**
@@ -234,6 +255,12 @@ class RouterImpl {
 			throw new Error('[Router] No route path provided');
 		}
 
+		// Default the route tag to the route name if not set, for backwards compatibility.
+		// NOTE: prior to version 0.2.x - name represented the tag name, in 0.2.0 this was split into a name (unique ID) and tag (tag name) property instead.
+		if (!route.tag) {
+			route.tag = route.name;
+		}
+
 		// Prevent duplicate route registration.
 		if (this._routes.find(r => r.name === route.name)) {
 			throw new Error(`[Router] Route with name "${route.name}" already exists`);
@@ -282,7 +309,7 @@ class RouterImpl {
 		}
 
 		// Extract the path part from the given URL.
-		let path = pathOrUrl.replace(window.location.origin, '');
+		let path = this._getPathString(pathOrUrl);
 
 		if (path.indexOf('?') !== -1) {
 			path = path.substring(0, path.indexOf('?'));
@@ -375,128 +402,213 @@ class RouterImpl {
 	/**
 	 * Navigate to the current browser URL path.
 	 * 
-	 * @returns Promise for the navigation result.
+	 * @returns True if the routing event occurred, or false when it is blocked, e.g. due to a guard condition.
 	 */
-	async load(): Promise<void> {
+	async load(): Promise<boolean> {
 
-		// Lookup the registered route for the path.
-		const route = this.getRouteForPath(window.location.href);
+		const path = this._getPathString(window.location.href);
+		const debugMessage = `path: ${path}`;
+
+		// Report the debug event, if enabled.
+		this._reportDebug('load.start', debugMessage);
+
+		// Check if routing to the path is allowed.
+		const route = await this._checkRoutingAllowed(path);
 
 		if (!route) {
 
-			console.error(`[Router] No route registered for path '${window.location.href}', unable to navigate.`);
+			this._reportDebug('load.blocked', debugMessage);
 
-			return;
+			return false;
 		}
 
-		// Ensure that a router outlet attached itself to the router.
-		if (!this.onNavigate) {
-
-			console.warn(`[Router] No route rendering outlet attached yet, did you add a <omni-router> tag to your web page?`);
-
-			return;
-		}
-
-		// Prevent navigating to a guarded route.
-		if (route.guard && !(await route.guard())) {
-
-			console.warn(`[Router] Route "${route.name}" stopped by its guard function, unable to navigate.`);
-
-			return;
+		// Add the path to the local history stack, if we are not already routed to the current path.
+		if (this._pathStack.length === 0 || this._pathStack[this._pathStack.length - 1] !== path) {
+			this._pathStack.push(path);
 		}
 
 		// Render the route that matches the browser URL path.
 		await this._applyRoute(route);
+
+		// Report the debug event, if enabled.
+		this._reportDebug('load.end', debugMessage);
+
+		// All good, mark the routing event as complete.
+		return true;
 	}
 
 	/**
 	 * Push a new path onto the browser history stack and render it's registered route.
+	 * 
+	 * The new path will be animated 'in' over the current path.
 	 *
 	 * @param path - The path to route to, e.g. /todo/123
 	 * @param state - Optional, meta data to attach to the path.
+	 * @param animateOut - Set to reverse the animation direction, making the current path animate 'out' to reveal the new path.
+	 * 
+	 * @returns True if the routing event occurred, or false when it is blocked, e.g. due to a guard condition.
 	 */
-	async push(path: string, state = {}): Promise<void> {
+	async push(path: string, state = {}, animateOut = false): Promise<boolean> {
 
-		// Lookup the registered route for the path.
-		const route = this.getRouteForPath(path);
+		const debugMessage = `path: ${path}, animateOut: ${animateOut ? 'true' : 'false'}`;
+
+		// Report the debug event, if enabled.
+		this._reportDebug('push.start', debugMessage);
+
+		// Check if routing to the path is allowed.
+		const route = await this._checkRoutingAllowed(path);
 
 		if (!route) {
 
-			console.error(`[Router] No route registered for path '${path}', unable to navigate.`);
+			this._reportDebug('push.blocked', debugMessage);
 
-			return;
-		}
-
-		// Ensure that a router outlet attached itself to the router.
-		if (!this.onNavigate) {
-
-			console.warn(`[Router] No route rendering outlet attached yet, did you add a <omni-router> tag to your web page?`);
-
-			return;
-		}
-
-		// Prevent navigating to a guarded route.
-		if (route.guard && !(await route.guard())) {
-
-			console.warn(`[Router] Route "${route.name}" stopped by its guard function, unable to navigate.`);
-
-			return;
+			return false;
 		}
 
 		// Push the path onto the browser history stack.
-		history.pushState(state, route.name, path);
+		window.history.pushState(state, route.name, path);
+
+		// Add the path to the local history stack.
+		this._pathStack.push(path);
 
 		// Render the route that matches the browser URL path.
-		await this._applyRoute(route);
+		await this._applyRoute(route, animateOut, false);
+
+		// Report the debug event, if enabled.
+		this._reportDebug('push.end', debugMessage);
+
+		// All good, mark the routing event as complete.
+		return true;
 	}
 
 	/**
 	 * Update the current path in the browser history stack with a new path and render it's registered route.
 	 * 
+	 * The new path will be animated 'in' over the current path.
+	 * 
 	 * @param path - The path to navigate to, e.g. /todo/123
 	 * @param state - Optional, meta data to attach to the path.
+	 * @param animateOut - Set to reverse the animation direction, making the current path animate 'out' to reveal the new path.
+	 * 
+	 * @returns True if the routing event occurred, or false when it is blocked, e.g. due to a guard condition.
 	 */
-	async replace(path: string, state = {}): Promise<void> {
+	async replace(path: string, state = {}, animateOut = false): Promise<boolean> {
 
-		// Lookup the registered route for the path.
-		const route = this.getRouteForPath(path);
+		const debugMessage = `path: ${path}, animateOut: ${animateOut ? 'true' : 'false'}`;
+
+		// Report the debug event, if enabled.
+		this._reportDebug('replace.start', debugMessage);
+
+		// Check if routing to the path is allowed.
+		const route = await this._checkRoutingAllowed(path);
 
 		if (!route) {
 
-			console.error(`[Router] No route registered for path '${path}', unable to navigate.`);
+			this._reportDebug('replace.blocked', debugMessage);
 
-			return;
-		}
-
-		// Ensure that a router outlet attached itself to the router.
-		if (!this.onNavigate) {
-
-			console.warn(`[Router] No route rendering outlet attached yet, did you add a <omni-router> tag to your web page?`);
-
-			return;
-		}
-
-		// Prevent navigating to a guarded route.
-		if (route.guard && !(await route.guard())) {
-
-			console.warn(`[Router] Route "${route.name}" stopped by its guard function, unable to navigate.`);
-
-			return;
+			return false;
 		}
 
 		// Replace the current path in the browser history stack.
-		history.replaceState(state, route.name, path);
+		window.history.replaceState(state, route.name, path);
+
+		// Replace the last path in the local history stack.
+		this._pathStack[this._pathStack.length - 1] = path;
 
 		// Render the route that matches the browser URL path.
-		await this._applyRoute(route, false, true);
+		await this._applyRoute(route, animateOut, true);
+
+		// Report the debug event, if enabled.
+		this._reportDebug('replace.end', debugMessage);
+
+		// All good, mark the routing event as complete.
+		return true;
 	}
 
 	/**
 	 * Pops the current path in the browser history stack and navigate the previous path.
+	 * 
+	 * The current path will be animated 'out' to reveal the previous path.
+	 * 
+	 * @param delta - The number of pages to go back. Must be a positive number. Defaults to 1 if not set.
 	 */
-	pop(): void {
+	pop(delta?: number): Promise<boolean> {
 
-		history.back();
+		return new Promise((resolve) => {
+
+			// Report the debug event, if enabled.
+			this._reportDebug('pop.start', `delta: ${delta ?? 'n/a'}`);
+
+			// If delta is not provided, or the delta is negative, then default to 1.
+			if (!delta || delta <= 0) {
+				delta = 1;
+			}
+
+			// Register an event listener to resolve the function when the pop event is detected.
+			let timeoutId: number = 0;
+
+			const waitForPop = async (): Promise<void> => {
+
+				// Clear the automatic resolver timeout.
+				window.clearTimeout(timeoutId);
+
+				// Remote the pop event listener.
+				window.removeEventListener('popstate', waitForPop); // eslint-disable-line @typescript-eslint/no-misused-promises
+
+				// Check if routing to the path is allowed.
+				const route = await this._checkRoutingAllowed(this._getPathString(window.location.href));
+
+				// Resolve the promise with a status indicating if the routing event occurred.
+				if (!route) {
+					resolve(false);
+				} else {
+					resolve(true);
+				}
+			};
+
+			window.addEventListener('popstate', waitForPop); // eslint-disable-line @typescript-eslint/no-misused-promises
+
+			// Automatically resolve the function if the pop event has not occurred within 1 second. This prevents event listener registrations from building up.
+			timeoutId = window.setTimeout(() => waitForPop(), 1000);
+
+			// Navigate back the delta amount of pages.
+			window.history.go(delta * -1);
+		});
+	}
+
+	/**
+	 * Pop all of the paths prior to the provided path off the browser history stack and render it's registered route.
+	 * 
+	 * The current path will be animated 'out' to reveal the previous path.
+	 * 
+	 * NOTE: if the path does not exist in the browser history stack, then it will be pushed onto the stack.
+	 * 
+	 * @param path - The path to navigate to, e.g. /todo/123
+	 * @param before - If true, the path before the provided path in the stack will be popped to instead.
+	 * 
+	 * @returns Nothing.
+	 */
+	async popToPath(path: string, before = false): Promise<boolean> {
+
+		// Report the debug event, if enabled.
+		this._reportDebug('popToPath.start', `path: ${path}, before: ${before ? 'true' : 'false'}`);
+
+		// Get the index of the path in the stack.
+		const lastIndex = this._pathStack.lastIndexOf(path);
+
+		// If the path does not exist on the stack, then route to the page by pushing it onto the router.
+		if (lastIndex === -1) {
+			return this.push(path, true);
+		}
+
+		// Otherwise, navigate back a delta amount of pages to get back to the path.
+		const delta = (this._pathStack.length - 1 - lastIndex + (before ? 1 : 0));
+
+		if (delta === 0) {
+			return false;
+		}
+
+		return this.pop(delta);
 	}
 
 	// --------------
@@ -508,11 +620,23 @@ class RouterImpl {
 	 */
 	private async _onPopState(): Promise<void> {
 
+		// Report the debug event, if enabled.
+		this._reportDebug('_onPopState.start');
+
 		// If the router has no routes, abort further processing.
 		if (this._routes.length === 0) {
 			return;
 		}
 
+		// Check if routing to the path is allowed.
+		const path = this._getPathString(window.location.href);
+		const route = await this._checkRoutingAllowed(path);
+
+		if (!route) {
+			return;
+		}
+
+		// Determine if the back button navigation event was triggered.
 		//
 		// NOTE:
 		//
@@ -523,18 +647,61 @@ class RouterImpl {
 		// future we could consider building an internal history management pattern, but this is not guaranteed and
 		// would likely be a best effort patch.
 		//
-
-		// Determine if the back button navigation event was triggered.
 		const backPressed = true;
 
-		// Lookup the registered route for the path.
-		const route = this.getRouteForPath(window.location.href);
+		// Remove all paths after the current path from the local history stack, if found.
+		const lastIndex = this._pathStack.lastIndexOf(path);
 
+		if (lastIndex !== -1) {
+			this._pathStack.splice(lastIndex + 1);
+		}
+
+		// Render the route that matches the browser URL path.
+		await this._applyRoute(route, backPressed);
+
+		// Report the debug event, if enabled.
+		this._reportDebug('_onPopState.end');
+	}
+
+	// ---------------
+	// PRIVATE METHODS
+	// ---------------
+
+	/**
+	 * Report a debug message to the console if debugging is enabled.
+	 * 
+	 * @param tag - The tag of the code location reporting the message.
+	 * @param message - The message to display.
+	 */
+	private _reportDebug(tag: string, message?: string): void {
+
+		// Ignore the request if debugging is not enabled.
+		if (!this.DEBUG) {
+			return;
+		}
+
+		// Log the debug message to the console.
+		console.debug(`[Router] ${tag}${message ? ` -> ${message}` : ''}`, this._pathStack);
+	}
+
+	/**
+	 * Check if routing to given path is allowed, executing the path route guard condition if needed.
+	 * 
+	 * @param path - The path to navigate to, e.g. /todo/123
+	 * 
+	 * @returns The route linked to the path, or undefined if routing is not allowed.
+	 */
+	private async _checkRoutingAllowed(path: string): Promise<Route | undefined> {
+
+		// Check if routing to the path is allowed.
+		const route = this.getRouteForPath(path);
+
+		// Ensure that the route is valid.
 		if (!route) {
 
-			console.error(`[Router] No route registered for path '${window.location.href}', unable to navigate.`);
+			console.error(`[Router] No route registered for path '${path}', unable to navigate.`);
 
-			return;
+			return undefined;
 		}
 
 		// Ensure that a router outlet attached itself to the router.
@@ -542,7 +709,7 @@ class RouterImpl {
 
 			console.warn(`[Router] No route rendering outlet attached yet, did you add a <omni-router> tag to your web page?`);
 
-			return;
+			return undefined;
 		}
 
 		// Prevent navigating to a guarded route.
@@ -550,16 +717,11 @@ class RouterImpl {
 
 			console.warn(`[Router] Route "${route.name}" stopped by its guard function, unable to navigate.`);
 
-			return;
+			return undefined;
 		}
 
-		// Render the route that matches the browser URL path.
-		await this._applyRoute(route, backPressed);
+		return route;
 	}
-
-	// ---------------
-	// PRIVATE METHODS
-	// ---------------
 
 	/**
 	 * Setup and animate in the given route.
@@ -575,10 +737,10 @@ class RouterImpl {
 			document.title = route.title;
 		}
 
-	        if (!isReplace) {
-	            // Keep record of the route history.
-	            this._previousLocation = this._currentLocation;
-	        }
+		if (!isReplace) {
+			// Keep record of the route history.
+			this._previousLocation = this._currentLocation;
+		}
 
 		// Build up the new route information.
 		this._currentLocation = {
@@ -668,6 +830,24 @@ class RouterImpl {
 
 		// Return the key value pairs.
 		return pathParams;
+	}
+
+	/**
+	 * Get the full path and URL parameters string for a given path, removing the protocol, server, and port information.
+	 * 
+	 * @param source - The URL to inspect.
+	 * 
+	 * @returns The path string.
+	 */
+	private _getPathString(source: string): string {
+
+		const result = source.replace(window.location.origin, '');
+
+		if (!result || result === '') {
+			return '/';
+		}
+
+		return result;
 	}
 }
 

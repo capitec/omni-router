@@ -36,8 +36,11 @@ export type RouterEventCallback = (detail: { previous?: RoutedLocation, current:
  */
 export type Route = {
 
-	/** The tag name of the web component to render for this route. */
+	/** The unique identifier for the route, must be the tag name of the web component if tag is not set. */
 	name: string;
+
+	/** The tag name of the web component to render for this route. */
+	tag?: string;
 
 	/** The relative URL path for the route to set in the browser navigation bar. */
 	path: string;

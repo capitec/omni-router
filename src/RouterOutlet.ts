@@ -342,7 +342,7 @@ export class RouterOutlet extends HTMLElement {
 
 		// Add the page component to the router display.
 		const oldRouteComponent = this._getCurrentRouteComponent();
-		const newRouteComponent = document.createElement(route.name);
+		const newRouteComponent = document.createElement(route.tag ?? route.name);
 
 		newRouteComponent.classList.add('page');
 
