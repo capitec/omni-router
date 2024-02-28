@@ -339,11 +339,11 @@ The ```Router``` class provides the following properties and functions:
 | ```getRouteForPath(pathOrUrl: string): Route \| null``` | Get the registered route for the given path. |
 | ```setDefault(name: string): boolean``` | Set the route that should be rendered when navigating to the app base URL. |
 | ```setFallback(name: string): boolean``` | Set the route that should be rendered when navigating to a route that does not exist. |
-| ```load(): Promise<\boolean\>``` | Navigate to the current browser URL path. |
-| ```push(path: string, state = {}, animateOut = false): Promise<\boolean\>``` | Push a new path onto the browser history stack and render it's registered route. |
-| ```replace(path: string, state = {}, animateOut = false): Promise<\boolean\>``` | Update the current path in the browser history stack with a new path and render it's registered route. |
-| ```pop(delta?: number): Promise<\boolean\>``` | Pops the current path in the browser history stack and navigate the previous path, or specified number pages back. |
-| ```popToPath(path: string, before = false): Promise<\boolean\>``` | Pops back in history to a previous path, removing all paths after this point from the stack. |
+| ```load(): Promise<boolean>``` | Navigate to the current browser URL path. |
+| ```push(path: string, state = {}, animateOut = false): Promise<boolean>``` | Push a new path onto the browser history stack and render it's registered route. |
+| ```replace(path: string, state = {}, animateOut = false): Promise<boolean>``` | Update the current path in the browser history stack with a new path and render it's registered route. |
+| ```pop(delta?: number): Promise<boolean>``` | Pops the current path in the browser history stack and navigate the previous path, or specified number pages back. |
+| ```popToPath(path: string, before = false): Promise<boolean>``` | Pops back in history to a previous path, removing all paths after this point from the stack. |
 
 <br>
 
