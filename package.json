@@ -1,6 +1,6 @@
 {
 	"name": "@capitec/omni-router",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Framework agnostic, zero dependency, client-side web component router",
 	"author": "Capitec",
 	"license": "MIT",
