@@ -841,13 +841,7 @@ class RouterImpl {
 	 */
 	private _getPathString(source: string): string {
 
-		const result = source.replace(window.location.origin, '');
-
-		if (!result || result === '') {
-			return '/';
-		}
-
-		return result;
+		return source.replace(window.location.origin, '');
 	}
 }
 
