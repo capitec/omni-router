@@ -331,9 +331,9 @@ class RouterImpl {
 			for (let i = 0; i < routeParts.length; i++) {
 
 				if (routeParts[i].endsWith('?')) {
-					routeParts[i] = '?[-.a-zA-Z0-9]*';
+					routeParts[i] = '?[-.a-zA-Z0-9 %]*';
 				} else if (routeParts[i].startsWith(':')) {
-					routeParts[i] = '[-.a-zA-Z0-9]+';
+					routeParts[i] = '[-.a-zA-Z0-9 %]+';
 				}
 			}
 
