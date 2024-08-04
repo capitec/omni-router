@@ -356,6 +356,7 @@ export class RouterOutlet extends HTMLElement {
 
 				// Clean up the animation once done.
 				newRouteComponent.addEventListener('animationend', () => {
+
 					// Clear the animation from the element.
 					newRouteComponent.classList.remove(animation, 'animate');
 
@@ -366,7 +367,8 @@ export class RouterOutlet extends HTMLElement {
 
 					// Mark the routing task as complete.
 					resolve();
-				});
+
+				}, { once: true });
 
 				// Add the new route component to the top of the view stack so the the animation is visible.
 				this.shadowRoot?.append(newRouteComponent);
@@ -385,6 +387,7 @@ export class RouterOutlet extends HTMLElement {
 
 					// Clean up the animation once done.
 					oldRouteComponent.addEventListener('animationend', () => {
+
 						// Clear the animation from the element.
 						oldRouteComponent.classList.remove(animation, 'animate');
 
@@ -393,7 +396,8 @@ export class RouterOutlet extends HTMLElement {
 
 						// Mark the routing task as complete.
 						resolve();
-					});
+
+					}, { once: true });
 
 					// Add the new route component to the bottom of the view stack so the the animation is visible.
 					this.shadowRoot?.prepend(newRouteComponent);
