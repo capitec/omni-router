@@ -30,4 +30,8 @@
 	"workbench.editor.enablePreview": true,
 	// Enable/disable default HTML formatter.
 	"html.format.enable": false,
+	// Set a custom title bar color.
+	"workbench.colorCustomizations": {
+		"titleBar.activeBackground": "#920b0b" // Change this color!
+	}
 }
