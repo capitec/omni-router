@@ -317,6 +317,12 @@ The ```<omni-router>``` tag dispatches the following events, that may be useful 
 | navigation-started | Fired before the route starts navigating, e.g. after ```guard``` is successful, but before ```load``` is called. |
 | navigation-started | Fired after the route page has completely rendered on screen, e.g. after it was fully animated in. |
 
+The ```<omni-router>``` tag provides the following functions:
+
+| Function | Description |
+| -------- | ----------- |
+| ```clearCache(): void``` | Clear the cache of route components. |
+
 <br>
 
 ### Router Class
