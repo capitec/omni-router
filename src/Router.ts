@@ -87,9 +87,9 @@ class RouterImpl {
 	/** Indicator if the router should log out debug messages. */
 	DEBUG = false;
 
-	// --------------
-	// INITIALIZATION
-	// --------------
+	// ---------------------
+	// region INITIALIZATION
+	// ---------------------
 
 	/**
 	 * Initialize the router.
@@ -114,9 +114,9 @@ class RouterImpl {
 		return this;
 	}
 
-	// ----------
-	// PROPERTIES
-	// ----------
+	// -----------------
+	// region PROPERTIES
+	// -----------------
 
 	/**
 	 * Get the currently location routed to.
@@ -181,9 +181,9 @@ class RouterImpl {
 		return this._routes.find(r => r.isFallback);
 	}
 
-	// --------------
-	// PUBLIC METHODS
-	// --------------
+	// ---------------------
+	// region PUBLIC METHODS
+	// ---------------------
 
 	/**
 	 * Registers a callback function to be invoked when the router dispatches an event.
@@ -611,9 +611,9 @@ class RouterImpl {
 		return this.pop(delta);
 	}
 
-	// --------------
-	// EVENT HANDLERS
-	// --------------
+	// ---------------------
+	// region EVENT HANDLERS
+	// ---------------------
 
 	/**
 	 * Render the registered route of the current browser URL when a browser navigation button was pressed or navigation API for the back, forward, and go actions was called.
@@ -663,9 +663,9 @@ class RouterImpl {
 		this._reportDebug('_onPopState.end');
 	}
 
-	// ---------------
-	// PRIVATE METHODS
-	// ---------------
+	// ----------------------
+	// region PRIVATE METHODS
+	// ----------------------
 
 	/**
 	 * Report a debug message to the console if debugging is enabled.

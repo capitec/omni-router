@@ -272,8 +272,10 @@ The ```Route``` object contains the following properties:
 | -------- | ---- | ----------- |
 | **name** | string | The unique identifier for the route, must be the tag name of the web component if tag is not set. |
 | **tag** | string | Optional, the registered custom-element tag name for your page web component, e.g. ```'view-login'``` |
+| **path** | string | The relative URL path for the route to set in the browser navigation bar, e.g. ```'/login'``` |
 | **title** | string | The window title to show when the route is loaded, e.g. ```'Login'``` |
 | **animation** | string | Optional, animation to apply when loading the route. Can be one of ```fade```, ```slide```, ```pop```
+| **cache** | boolean | Optional, indicator if the route template should be cached and reused, or recreated every time the route is navigated to.
 | **load** | function | Optional, function to execute before navigating to the route. Typically used to lazy load the page web component, e.g. <br>```() => import('./views/ViewLogin')``` |
 | **guard** | function | Optional, function to execute to check if a route may be navigated to. Typically used to limit access to routes., e.g. <br>```() => !this._isUserLoggedIn()``` |
 | **isDefault** | boolean | Optional, flag to set this route as the default route to load when the browser URL path is empty or default, e.g. ```/```. Note: can only be applied to 1 route. |
