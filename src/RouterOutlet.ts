@@ -44,9 +44,12 @@ export class RouterOutlet extends HTMLElement {
 	/** List of queued navigation animation tasks. */
 	private _animationQueue: RouteTask[] = [];
 
-	// --------------
-	// INITIALIZATION
-	// --------------
+	/** Map of all the route components cached for quick access. */
+	private _routeCache = new Map<string, HTMLElement>();
+
+	// ---------------------
+	// region INITIALIZATION
+	// ---------------------
 
 	/**
 	 * Initializes the component.
@@ -233,23 +236,36 @@ export class RouterOutlet extends HTMLElement {
 
 		// Stop rendering on router navigation changes.
 		Router.onNavigate = undefined;
+
+		// Clear any cached values.
+		this._currentLocation = undefined;
+		this._previousLocation = undefined;
+		this._isAnimating = false;
+		this._animationQueue = [];
+		this._routeCache = new Map();
 	}
 
-	// ----------
-	// PROPERTIES
-	// ----------
+	// -----------------
+	// region PROPERTIES
+	// -----------------
 
 	// n/a
 
-	// --------------
-	// PUBLIC METHODS
-	// --------------
+	// ---------------------
+	// region PUBLIC METHODS
+	// ---------------------
 
-	// n/a
+	/**
+	 * Clear the cache of route components.
+	 */
+	clearCache(): void {
 
-	// ---------------
-	// PRIVATE METHODS
-	// ---------------
+		this._routeCache.clear();
+	}
+
+	// ----------------------
+	// region PRIVATE METHODS
+	// ----------------------
 
 	/**
 	 * Load a route into view.
@@ -311,7 +327,7 @@ export class RouterOutlet extends HTMLElement {
 		const routedLocation = routeRequest.routedLocation;
 		const animation = routeRequest.animation;
 
-		// Stop processing if the route provided is not vaild.
+		// Stop processing if the route provided is not valid.
 		const route = routedLocation.route;
 
 		if (!route) {
@@ -340,10 +356,33 @@ export class RouterOutlet extends HTMLElement {
 			await route.load();
 		}
 
-		// Add the page component to the router display.
+		// Get the display component for the currently rendered route.
 		const oldRouteComponent = this._getCurrentRouteComponent();
-		const newRouteComponent = document.createElement(route.tag ?? route.name);
 
+		// Get the display component for the route we are navigating to from cache, if available.
+		const tagName = route.tag ?? route.name;
+		let newRouteComponent: HTMLElement;
+
+		if (!route.cache) {
+
+			// Just create the route component fresh if it is not configured to be cached.
+			newRouteComponent = document.createElement(tagName);
+
+		} else {
+
+			// Get the route component from cache.
+			newRouteComponent = this._routeCache.get(tagName) as HTMLElement;
+
+			// Create the element and add it to cache if it does not yet exist.
+			if (!newRouteComponent) {
+
+				newRouteComponent = document.createElement(tagName);
+
+				this._routeCache.set(tagName, newRouteComponent);
+			}
+		}
+
+		// Position the new route component to be animated in.
 		newRouteComponent.classList.add('page');
 
 		// Start a task to animate in the new route component and animate out the old route component.
