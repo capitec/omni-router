@@ -370,18 +370,15 @@ export class RouterOutlet extends HTMLElement {
 
 		} else {
 
-			// Otherwise, try to retrieve the component from cache.
-			if (!this._routeCache.has(tagName)) {
+			// Get the route component from cache.
+			newRouteComponent = this._routeCache.get(tagName) as HTMLElement;
 
-				// Create the element and add it to cache if it does not yet exist.
+			// Create the element and add it to cache if it does not yet exist.
+			if (!newRouteComponent) {
+
 				newRouteComponent = document.createElement(tagName);
 
 				this._routeCache.set(tagName, newRouteComponent);
-
-			} else {
-
-				// Otherwise, just set the component from cache.
-				newRouteComponent = this._routeCache.get(tagName) as HTMLElement;
 			}
 		}
 
