@@ -21,7 +21,7 @@
 		"@capitec/omni-router": "file:../.."
 	},
 	"devDependencies": {
-		"@web/dev-server": "^0.1.35",
+		"@web/dev-server": "^0.4.6",
 		"command-line-args": "^5.2.1",
 		"esbuild": "0.16.9",
 		"fs-extra": "^10.1.0",
