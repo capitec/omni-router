@@ -274,8 +274,10 @@ The ```Route``` object contains the following properties:
 | **tag** | string | Optional, the registered custom-element tag name for your page web component, e.g. ```'view-login'``` |
 | **path** | string | The relative URL path for the route to set in the browser navigation bar, e.g. ```'/login'``` |
 | **title** | string | The window title to show when the route is loaded, e.g. ```'Login'``` |
-| **animation** | string | Optional, animation to apply when loading the route. Can be one of ```fade```, ```slide```, ```pop```
-| **cache** | boolean | Optional, indicator if the route template should be cached and reused, or recreated every time the route is navigated to.
+| **animation** | string | Optional, animation to apply when loading the route. Can be one of ```fade```, ```slide```, ```pop``` |
+| **theme** | string | Optional, CSS class name to attach to the route page when loading, useful to apply page level theme variables. Note the `dom="light"` attribute has to be set for this option to take effect. |
+| **metadata** | object | Optional, metadata to store on the route. |
+| **cache** | boolean | Optional, indicator if the route template should be cached and reused, or recreated every time the route is navigated to. |
 | **load** | function | Optional, function to execute before navigating to the route. Typically used to lazy load the page web component, e.g. <br>```() => import('./views/ViewLogin')``` |
 | **guard** | function | Optional, function to execute to check if a route may be navigated to. Typically used to limit access to routes., e.g. <br>```() => !this._isUserLoggedIn()``` |
 | **isDefault** | boolean | Optional, flag to set this route as the default route to load when the browser URL path is empty or default, e.g. ```/```. Note: can only be applied to 1 route. |
@@ -309,6 +311,13 @@ The router styling can be customized using the following CSS Custom Properties:
 <br>
 
 ### Router Tag
+
+The ```<omni-router>``` tag exposes the following attributes:
+
+| Function | Description |
+| -------- | ----------- |
+| ```dom="shadow"``` | Attached as shadow DOM to the router, preventing page level CSS from inheriting into the loaded route pages. This is the default. |
+| ```dom="light"``` | Render the router in the parent element DOM, allowing for CSS values to inherit into the loaded route pages. |
 
 The ```<omni-router>``` tag dispatches the following events, that may be useful to subscribe to when wanting to apply changes to a page while a route is lazy loading, e.g. show a loading indicator.
 
