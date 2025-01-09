@@ -51,6 +51,12 @@ export type Route = {
 	/** The effect to animate the route into and out of view with, e.g. fade, slide, pop. */
 	animation?: RouteAnimation;
 
+	/** CSS classname to attach to the route page when loading, useful to apply page level theme variables. */
+	theme?: string;
+
+	/** Optional metadata to store on the route. */
+	metadata?: Record<string, unknown>;
+
 	/** Indicator if the route template should be cached and reused, or recreated every time the route is navigated to. */
 	cache?: boolean;
 
