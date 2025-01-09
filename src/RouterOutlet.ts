@@ -24,6 +24,8 @@ type RouteTask = {
  *     </omni-router>
  * ```
  * 
+ * @attr noshadow - Set to render the component in the parent light DOM instead of a shadow root.
+ * 
  * @element omni-router
  * 
  * @fires {CustomEvent<RoutedLocation>} navigation-started - Dispatched when the a new page starts loading.
@@ -47,6 +49,9 @@ export class RouterOutlet extends HTMLElement {
 	/** Map of all the route components cached for quick access. */
 	private _routeCache = new Map<string, HTMLElement>();
 
+	/** The root to render the component in, e.g. shadow root or light DOM. */
+	private root: Element | ShadowRoot;
+
 	// ---------------------
 	// region INITIALIZATION
 	// ---------------------
@@ -62,7 +67,11 @@ export class RouterOutlet extends HTMLElement {
 		this._isAnimating = false;
 
 		// Create the element shadow root.
-		const shadow = this.attachShadow({ mode: 'open' });
+		if (this.getAttribute('dom') === 'light') {
+			this.root = this;
+		} else {
+			this.root = this.attachShadow({ mode: 'open' });
+		}
 
 		// Set component styles.
 		const style = document.createElement('style');
@@ -217,7 +226,7 @@ export class RouterOutlet extends HTMLElement {
 			}
 		`;
 
-		shadow.appendChild(style);
+		this.root.appendChild(style);
 	}
 
 	/**
@@ -368,6 +377,10 @@ export class RouterOutlet extends HTMLElement {
 			// Just create the route component fresh if it is not configured to be cached.
 			newRouteComponent = document.createElement(tagName);
 
+			if (route.theme) {
+				newRouteComponent.classList.add(route.theme);
+			}
+
 		} else {
 
 			// Get the route component from cache.
@@ -377,6 +390,10 @@ export class RouterOutlet extends HTMLElement {
 			if (!newRouteComponent) {
 
 				newRouteComponent = document.createElement(tagName);
+
+				if (route.theme) {
+					newRouteComponent.classList.add(route.theme);
+				}
 
 				this._routeCache.set(tagName, newRouteComponent);
 			}
@@ -410,7 +427,7 @@ export class RouterOutlet extends HTMLElement {
 				}, { once: true });
 
 				// Add the new route component to the top of the view stack so the the animation is visible.
-				this.shadowRoot?.append(newRouteComponent);
+				this.root?.append(newRouteComponent);
 
 				// Start the animation.
 				setTimeout(() => {
@@ -439,7 +456,7 @@ export class RouterOutlet extends HTMLElement {
 					}, { once: true });
 
 					// Add the new route component to the bottom of the view stack so the the animation is visible.
-					this.shadowRoot?.prepend(newRouteComponent);
+					this.root?.prepend(newRouteComponent);
 
 					// Start the animation.
 					setTimeout(() => {
@@ -449,7 +466,7 @@ export class RouterOutlet extends HTMLElement {
 				} else {
 
 					// There is no old route component to animate out, just add the new route component instead.
-					this.shadowRoot?.prepend(newRouteComponent);
+					this.root?.prepend(newRouteComponent);
 
 					// Mark the routing task as complete.
 					resolve();
@@ -462,7 +479,7 @@ export class RouterOutlet extends HTMLElement {
 					oldRouteComponent.remove();
 				}
 
-				this.shadowRoot?.append(newRouteComponent);
+				this.root?.append(newRouteComponent);
 
 				// Mark the routing task as complete.
 				resolve();
@@ -489,13 +506,13 @@ export class RouterOutlet extends HTMLElement {
 	 */
 	private _getCurrentRouteComponent(): Element | null {
 
-		if (!this.shadowRoot) {
+		if (!this.root) {
 			return null;
 		}
 
-		for (let i = 0; i < this.shadowRoot.children.length; i++) {
+		for (let i = 0; i < this.root.children.length; i++) {
 
-			const child = this.shadowRoot.children[i];
+			const child = this.root.children[i];
 
 			if (child.tagName.toLowerCase() !== 'style') {
 				return child;
