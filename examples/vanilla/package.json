@@ -23,7 +23,7 @@
 	"devDependencies": {
 		"@web/dev-server": "^0.4.6",
 		"command-line-args": "^5.2.1",
-		"esbuild": "0.16.9",
+		"esbuild": "0.25.0",
 		"fs-extra": "^10.1.0",
 		"globby": "^13.1.2"
 	}
